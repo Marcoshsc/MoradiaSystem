@@ -1,0 +1,8 @@
+@import '../../styles/flex.scss';
+
+.container {
+  @include flex(row, 0, center, center);
+  flex-wrap: wrap;
+  width: 100%;
+  height: 100%;
+}
