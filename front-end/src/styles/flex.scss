@@ -1,7 +1,16 @@
-@mixin flex($direction, $gap, $align, $justify) {
+
+@mixin flex-container($direction, $gap, $justify, $align) {
   display: flex;
   flex-direction: $direction;
-  align-items: $align;
-  justify-content: $justify;
   gap: $gap;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+@mixin flex-column($gap, $justify, $align) {
+  @include flex-container(column, $gap, $justify, $align);
+}
+
+@mixin flex-row($gap, $justify, $align) {
+  @include flex-container(row, $gap, $justify, $align);
 }
