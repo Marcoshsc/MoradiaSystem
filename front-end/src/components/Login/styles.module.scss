@@ -1,0 +1,70 @@
+@import "../../styles/flex.scss";
+
+.container {
+  background: url("../../images/image-login.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100vw;
+  height: 100vh;
+  overflow-y: hidden !important;
+  position: relative;
+}
+
+.panel {
+  position: absolute;
+  right: 60px;
+  width: 600px;
+  height: 100%;
+  background-color: #e9f2ecdd;
+  border-left: 2px solid #36ff15;
+  border-right: 2px solid #36ff15;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  p {
+    margin: 10px;
+    font-size: 18px;
+    span {
+      color: #36ff15;
+      text-decoration: underline;
+      cursor: pointer;
+      &:hover {
+        color: #217032;
+      }
+    }
+  }
+}
+
+.inputContainer {
+  width: 80%;
+  height: 10%;
+  @include flex-row(15px, center, center);
+  input {
+    width: 70%;
+    height: 40%;
+    border-radius: 8px;
+    outline: none;
+    border: 1px solid transparent;
+    padding: 5px;
+    font-size: 18px;
+    &:focus {
+      border: 1px solid #49e300;
+    }
+  }
+}
+
+.buttonAccess {
+  padding: 10px;
+  width: 30%;
+  font-size: 32px;
+  color: #fff;
+  background-color: #49e300;
+  border-radius: 8px;
+  border: none;
+  transition: all 500ms;
+  &:hover {
+    background-color: #217032;
+  }
+}
