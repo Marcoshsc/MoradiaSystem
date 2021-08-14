@@ -9,25 +9,29 @@ import PlacePage from "./components/PlacePage";
 import Login from "./components/Login";
 import PlacesList from "./components/PlacesList";
 import "./styles/globals.scss";
+import NavBar from "./components/NavBar";
 
 function App() {
   return (
-    <Router>
-      <Switch>
-        <Route exact path="/places">
-          <PlacesList />
-        </Route>
-        <Route path="/places/:id">
-          <PlacePage />
-        </Route>
-        <Route path="/login">
-          <Login />
-        </Route>
-        <Route exact path="/">
-          <Redirect to="/places" />
-        </Route>
-      </Switch>
-    </Router>
+    <>
+      <Router>
+        <NavBar />
+        <Switch>
+          <Route exact path="/places">
+            <PlacesList />
+          </Route>
+          <Route path="/places/:id">
+            <PlacePage />
+          </Route>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route exact path="/">
+            <Redirect to="/places" />
+          </Route>
+        </Switch>
+      </Router>
+    </>
   );
 }
 
