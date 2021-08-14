@@ -19,7 +19,7 @@ const NavBar: FC = () => {
         history.push("/places");
         break;
       case 1:
-        history.push("/users");
+        history.push("/user");
         break;
       case 2:
         history.push("/contracts");
@@ -35,7 +35,9 @@ const NavBar: FC = () => {
     setAnchorEl(null);
   };
 
-  return (
+  return history.location.pathname === "/login" ? (
+    <></>
+  ) : (
     <div className={styles.navbar}>
       <div className={styles.itensWrapper}>
         <div className={styles.navitens}>

@@ -10,6 +10,7 @@ import Login from "./components/Login";
 import PlacesList from "./components/PlacesList";
 import "./styles/globals.scss";
 import NavBar from "./components/NavBar";
+import UserPage from "./components/UserPage";
 
 function App() {
   return (
@@ -25,6 +26,9 @@ function App() {
           </Route>
           <Route path="/login">
             <Login />
+          </Route>
+          <Route path="/user">
+            <UserPage />
           </Route>
           <Route exact path="/">
             <Redirect to="/places" />

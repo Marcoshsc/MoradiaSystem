@@ -1,0 +1,55 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
+
+.container {
+  padding: 20px;
+  border-radius: 10px;
+  height: max-content;
+}
+.header {
+  height: 80px;
+  border-radius: 10px;
+  background-color: #36ff15;
+  display: flex;
+  align-content: center;
+  gap: 20px;
+  div {
+    margin-top: 30px;
+    color: white;
+    font-size: 20px;
+  }
+}
+.avatar {
+  height: 45px;
+  margin-top: 20px;
+  margin-left: 40px;
+}
+.description {
+  padding: 10px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 300 !important;
+}
+.cardInfo {
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  max-width: 600px;
+  margin-top: 30px;
+  width: 60%;
+  border-radius: 10px;
+  border: #36ff15 1px solid;
+  padding: 20px;
+}
+.cardColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.cardItem {
+  display: flex;
+  gap: 10px;
+}
+
+.phone {
+  height: 16px;
+  width: 15px;
+}
