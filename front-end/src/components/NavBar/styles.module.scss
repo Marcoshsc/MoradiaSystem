@@ -33,6 +33,12 @@
   width: 30px;
   margin-top: 10px;
 }
+.menu {
+  height: 12px;
+  margin-top: 20px;
+  margin-left: 40px;
+  cursor: pointer;
+}
 .itemSelected {
   width: 90px;
   background-color: greenyellow;
@@ -43,4 +49,8 @@
   color: black;
   font-size: 18px;
   place-self: center;
+}
+.logout {
+  color: red !important;
+  justify-content: center !important;
 }
