@@ -36,7 +36,7 @@ const CardSale = ({
     <div className={styles.actionsButtons}>
       {editInfo ? (
         <button className={styles.buttonSave} onClick={handleSaveInfo}>
-          Salvar descrição
+          Salvar edição
         </button>
       ) : (
         <>

@@ -10,6 +10,7 @@ import PlacesList from "./components/PlacesList";
 import "./styles/globals.scss";
 import NavBar from "./components/NavBar";
 import UserPage from "./components/UserPage";
+import ContractPage from "./components/ContractPage";
 
 function App() {
   return (
@@ -31,6 +32,9 @@ function App() {
           </Route>
           <Route exact path="/user/edit">
             <UserPage isEdit />
+          </Route>
+          <Route exact path="/contracts">
+            <ContractPage />
           </Route>
           <Route exact path="/">
             <Redirect to="/places" />

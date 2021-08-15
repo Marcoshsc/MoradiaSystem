@@ -50,7 +50,7 @@ const UserPage = ({ isEdit }: { isEdit: boolean }) => {
       {isEdit && editName ? (
         <input defaultValue="Usuário" className={styles.inputEdit} />
       ) : (
-        <div>Usuário</div>
+        <div className={styles.nameUser}>Usuário</div>
       )}
       {isEdit ? (
         editName ? (

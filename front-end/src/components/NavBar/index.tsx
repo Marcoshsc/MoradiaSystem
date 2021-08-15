@@ -8,12 +8,15 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 
 const NavBar: FC = () => {
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(
+    Number.parseInt(localStorage.getItem("index")!)
+  );
   const history = useHistory();
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleChangeTab = (indexSelected: number) => {
     setIndex(indexSelected);
+    localStorage.setItem("index", indexSelected.toString());
     switch (indexSelected) {
       case 0:
         history.push("/places");
