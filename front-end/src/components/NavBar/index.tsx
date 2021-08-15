@@ -52,12 +52,13 @@ const NavBar: FC = () => {
       </div>
       <div className={styles.navuser}>
         <div className={styles.username}>Bem vindo, usuário</div>
-        <img src={Avatar} className={styles.avatar}></img>
+        <img src={Avatar} className={styles.avatar} alt="avatar"></img>
         <img
           src={MenuImg}
           className={styles.menu}
           onClick={handleClickMenu}
-        ></img>
+          alt="menu"
+        />
         <Menu
           id="simple-menu"
           anchorEl={anchorEl}

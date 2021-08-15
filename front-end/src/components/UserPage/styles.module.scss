@@ -18,15 +18,32 @@
     font-size: 20px;
   }
 }
+.iconButton {
+  cursor: pointer;
+}
+.userInfo {
+  display: flex;
+}
 .avatar {
   height: 45px;
   margin-top: 20px;
   margin-left: 40px;
 }
 .description {
-  padding: 10px;
-  font-family: "Roboto", sans-serif;
-  font-weight: 300 !important;
+  display: flex;
+  justify-content: space-between;
+  p {
+    width: 70%;
+    padding: 10px;
+    font-family: "Roboto", sans-serif;
+    font-weight: 300 !important;
+  }
+
+  textarea {
+    width: 70%;
+    box-sizing: border-box;
+    margin-top: 15px;
+  }
 }
 .cardInfo {
   display: flex;
@@ -34,7 +51,7 @@
   margin: auto;
   max-width: 600px;
   margin-top: 30px;
-  width: 60%;
+  width: 70%;
   border-radius: 10px;
   border: #36ff15 1px solid;
   padding: 20px;
@@ -47,9 +64,57 @@
 .cardItem {
   display: flex;
   gap: 10px;
+  align-content: center;
+  svg {
+    margin-top: 0.8px;
+  }
 }
 
 .phone {
   height: 16px;
   width: 15px;
+}
+.buttonEdit {
+  place-self: center;
+  height: 32px;
+  cursor: pointer;
+  width: 300px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  font-size: 16px;
+  color: black;
+  background-color: white;
+  border-radius: 8px;
+  border: none;
+  transition: all 500ms;
+  &:hover {
+    background-color: lightgray;
+  }
+}
+
+.buttonSave {
+  place-self: center;
+  height: 32px;
+  cursor: pointer;
+  width: 300px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  font-size: 16px;
+  color: white;
+  background-color: cornflowerblue;
+  border-radius: 8px;
+  border: none;
+  transition: all 500ms;
+  &:hover {
+    background-color: lightblue;
+  }
+}
+
+.smallInput {
+  width: 30px;
+}
+
+.inputEdit {
+  width: 200px;
+  height: 20px;
+  place-self: center;
+  margin-top: 8px;
 }

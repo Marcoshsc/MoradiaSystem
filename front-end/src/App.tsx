@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Route,
   BrowserRouter as Router,
@@ -27,8 +26,11 @@ function App() {
           <Route path="/login">
             <Login />
           </Route>
-          <Route path="/user">
-            <UserPage />
+          <Route exact path="/user">
+            <UserPage isEdit={false} />
+          </Route>
+          <Route exact path="/user/edit">
+            <UserPage isEdit />
           </Route>
           <Route exact path="/">
             <Redirect to="/places" />
