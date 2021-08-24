@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+         Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel pgmodeler-ver="0.9.2" last-position="0,0" last-zoom="0.75" max-obj-count="8"
+	 default-schema="public" default-owner="postgres">
+<database name="new_database" is-template="false" allow-conns="true">
+</database>
+
+<schema name="public" layer="0" fill-color="#e1e1e1" sql-disabled="true">
+</schema>
+
+<table name="user" layer="0" collapse-mode="2" max-obj-count="9">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="900" y="100"/>
+	<column name="id" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="name" not-null="true">
+		<type name="character varying" length="100"/>
+	</column>
+	<column name="description">
+		<type name="text" length="0"/>
+	</column>
+	<column name="email" not-null="true">
+		<type name="character varying" length="100"/>
+	</column>
+	<column name="password" not-null="true">
+		<type name="text" length="0"/>
+	</column>
+	<column name="phone">
+		<type name="character varying" length="30"/>
+	</column>
+	<column name="location" not-null="true">
+		<type name="character varying" length="100"/>
+	</column>
+	<column name="created_at" not-null="true" default-value="now()">
+		<type name="timestamp" length="0"/>
+	</column>
+	<constraint name="user_pk" type="pk-constr" table="public.&quot;user&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="place" layer="0" collapse-mode="2" max-obj-count="14">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="220" y="80"/>
+	<column name="id" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="name" not-null="true">
+		<type name="character varying" length="50"/>
+	</column>
+	<column name="rooms" not-null="true">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="bathrooms" not-null="true">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="location" not-null="true">
+		<type name="character varying" length="50"/>
+	</column>
+	<column name="description" not-null="true">
+		<type name="text" length="50"/>
+	</column>
+	<column name="created_at" not-null="true" default-value="now()">
+		<type name="timestamp" length="0"/>
+	</column>
+	<column name="status" not-null="true">
+		<type name="character varying" length="50"/>
+	</column>
+	<column name="area" not-null="true">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="value" not-null="true">
+		<type name="double precision" length="0"/>
+	</column>
+	<column name="image" not-null="true">
+		<type name="text" length="0"/>
+	</column>
+	<constraint name="status_ck" type="ck-constr" table="public.place">
+			<expression><![CDATA[status in ('USING', 'SELL', 'RENT')]]></expression>
+	</constraint>
+	<constraint name="place_pk" type="pk-constr" table="public.place">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="id_user" index="11"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="user_fk" index="1"/>
+	</customidxs>
+</table>
+
+<relationship name="user_has_many_place" type="rel1n" layer="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#f76219"
+	 src-table="public.&quot;user&quot;"
+	 dst-table="public.place"
+	 src-required="true" dst-required="false"/>
+
+<table name="rentcontract" layer="0" collapse-mode="2" max-obj-count="8">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1420" y="420"/>
+	<column name="id" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="created_at" not-null="true" default-value="now()">
+		<type name="timestamp" length="0"/>
+	</column>
+	<column name="start" not-null="true">
+		<type name="date" length="0"/>
+	</column>
+	<column name="end" not-null="true">
+		<type name="date" length="0"/>
+	</column>
+	<column name="value" not-null="true">
+		<type name="double precision" length="0"/>
+	</column>
+	<constraint name="rentcontract_pk" type="pk-constr" table="public.rentcontract">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="place_has_many_rentcontract" type="rel1n" layer="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#e50b44"
+	 src-table="public.place"
+	 dst-table="public.rentcontract"
+	 src-required="true" dst-required="false"/>
+
+<relationship name="user_has_many_rentcontract" type="rel1n" layer="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#4648f9"
+	 src-table="public.&quot;user&quot;"
+	 dst-table="public.rentcontract"
+	 src-required="true" dst-required="false"/>
+
+<table name="sellcontract" layer="0" collapse-mode="2" max-obj-count="6">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="780" y="560"/>
+	<column name="id" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="value" not-null="true">
+		<type name="double precision" length="0"/>
+	</column>
+	<column name="created_at" not-null="true" default-value="now()">
+		<type name="timestamp" length="0"/>
+	</column>
+	<constraint name="sellcontract_pk" type="pk-constr" table="public.sellcontract">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="place_has_many_sellcontract" type="rel1n" layer="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#4d15a7"
+	 src-table="public.place"
+	 dst-table="public.sellcontract"
+	 src-required="true" dst-required="false"/>
+
+<relationship name="user_has_many_sellcontract" type="rel1n" layer="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#a6d4a6"
+	 src-table="public.&quot;user&quot;"
+	 dst-table="public.sellcontract"
+	 src-required="true" dst-required="false"/>
+
+<table name="interest" layer="0" collapse-mode="2" max-obj-count="6">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="140" y="520"/>
+	<column name="id" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="proposed_value" not-null="true">
+		<type name="double precision" length="0"/>
+	</column>
+	<column name="created_at" not-null="true" default-value="now()">
+		<type name="timestamp" length="0"/>
+	</column>
+	<constraint name="interest_pk" type="pk-constr" table="public.interest">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="place_has_many_interest" type="rel1n" layer="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#59449a"
+	 src-table="public.place"
+	 dst-table="public.interest"
+	 src-required="true" dst-required="false"/>
+
+<relationship name="user_has_many_interest" type="rel1n" layer="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#7be320"
+	 src-table="public.&quot;user&quot;"
+	 dst-table="public.interest"
+	 src-required="true" dst-required="false"/>
+
+</dbmodel>

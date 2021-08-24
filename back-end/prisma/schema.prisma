@@ -1,18 +1,74 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+generator client {
+  provider = "prisma-client-js"
+}
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-generator client {
-  provider = "prisma-client-js"
+model interest {
+  id             Int      @id @default(autoincrement())
+  proposed_value Float
+  created_at     DateTime @default(now()) @db.Timestamp(6)
+  id_place       Int
+  id_user        Int
+  place          place    @relation(fields: [id_place], references: [id])
+  user           user     @relation(fields: [id_user], references: [id])
 }
 
-model User {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  email     String   @unique
-  name      String?
+model place {
+  id           Int            @id @default(autoincrement())
+  name         String         @db.VarChar(50)
+  rooms        Int            @db.SmallInt
+  bathrooms    Int            @db.SmallInt
+  location     String         @db.VarChar(50)
+  description  String
+  created_at   DateTime       @default(now()) @db.Timestamp(6)
+  status       String         @db.VarChar(50)
+  area         Int            @db.SmallInt
+  value        Float
+  image        String
+  id_user      Int
+  user         user           @relation(fields: [id_user], references: [id])
+  interest     interest[]
+  rentcontract rentcontract[]
+  sellcontract sellcontract[]
+}
+
+model rentcontract {
+  id         Int      @id @default(autoincrement())
+  created_at DateTime @default(now()) @db.Timestamp(6)
+  start      DateTime @db.Date
+  end        DateTime @db.Date
+  value      Float
+  id_place   Int
+  id_user    Int
+  place      place    @relation(fields: [id_place], references: [id])
+  user       user     @relation(fields: [id_user], references: [id])
+}
+
+model sellcontract {
+  id         Int      @id @default(autoincrement())
+  value      Float
+  created_at DateTime @default(now()) @db.Timestamp(6)
+  id_place   Int
+  id_user    Int
+  place      place    @relation(fields: [id_place], references: [id])
+  user       user     @relation(fields: [id_user], references: [id])
+}
+
+model user {
+  id           Int            @id @default(autoincrement())
+  name         String         @db.VarChar(100)
+  description  String?
+  email        String         @db.VarChar(100)
+  password     String
+  phone        String?        @db.VarChar(30)
+  location     String         @db.VarChar(100)
+  created_at   DateTime       @default(now()) @db.Timestamp(6)
+  interest     interest[]
+  place        place[]
+  rentcontract rentcontract[]
+  sellcontract sellcontract[]
 }
