@@ -2,5 +2,12 @@
   "name": "back-end",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "dependencies": {
+    "@prisma/client": "^2.29.1",
+    "prisma": "^2.29.1"
+  }
 }
