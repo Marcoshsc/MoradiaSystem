@@ -21,10 +21,39 @@ module.exports = {
     }
   },
 
-
   async index(req, res) {
     try {
       const data = await prisma.user.findMany();
+      res.json(data);
+    } catch (error) {
+      console.log(error.name + ":" + error.message);
+      res.status(400).send();
+    }
+  },
+
+  async getUser(req, res) {
+    const id = req.params.id;
+    try {
+      const data = await prisma.user.findUnique({
+        where: {
+          id: id,
+        }
+      });
+      res.json(data);
+    } catch (error) {
+      console.log(error.name + ":" + error.message);
+      res.status(400).send();
+    }
+  },
+  
+  async getPlaces(req, res) {
+    const id = req.params.id;
+    try {
+      const data = await prisma.place.findMany({
+        where: {
+          id_user: id,
+        }
+      });
       res.json(data);
     } catch (error) {
       console.log(error.name + ":" + error.message);
