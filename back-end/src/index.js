@@ -1,20 +1,14 @@
-const { PrismaClient } = require(".prisma/client");
+const express = require('express');
+const routes = require('./routes.js');
+const cors = require('cors');
 
-const prisma = new PrismaClient();
+const app = express();
 
-const doThings = async () => {
-  const newUser = await prisma.user.create({
-    data: {
-      name: "Alice",
-      email: "alice@prisma.io",
-    },
-  });
+app.use(cors());
+app.use(express.json());
+app.use(routes);
 
-  console.log(newUser);
+app.listen(3333, () => {
+  console.log("SERVER IS RUNING OF PORT 3333");
+});
 
-  const users = await prisma.user.findMany();
-
-  console.log(users);
-};
-
-doThings();

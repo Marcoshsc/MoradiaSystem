@@ -8,6 +8,8 @@
   },
   "dependencies": {
     "@prisma/client": "^2.29.1",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
     "prisma": "^2.29.1"
   }
 }
