@@ -3,6 +3,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Redirect,
+  useLocation,
 } from "react-router-dom";
 import PlacePage from "./components/PlacePage";
 import Login from "./components/Login";
@@ -11,34 +12,42 @@ import "./styles/globals.scss";
 import NavBar from "./components/NavBar";
 import UserPage from "./components/UserPage";
 import ContractPage from "./components/ContractPage";
+import Register from "./components/Register";
 
 function App() {
   return (
     <>
       <Router>
-        <NavBar />
         <Switch>
-          <Route exact path="/places">
-            <PlacesList />
-          </Route>
-          <Route path="/places/:id">
-            <PlacePage />
+          <Route path="/register">
+            <Register />
           </Route>
           <Route path="/login">
             <Login />
           </Route>
-          <Route exact path="/user">
-            <UserPage isEdit={false} />
-          </Route>
-          <Route exact path="/user/edit">
-            <UserPage isEdit />
-          </Route>
-          <Route exact path="/contracts">
-            <ContractPage />
-          </Route>
-          <Route exact path="/">
-            <Redirect to="/places" />
-          </Route>
+          <div>
+            <NavBar />
+
+            <Route exact path="/places">
+              <PlacesList />
+            </Route>
+            <Route path="/places/:id">
+              <PlacePage />
+            </Route>
+
+            <Route exact path="/user">
+              <UserPage isEdit={false} />
+            </Route>
+            <Route exact path="/user/edit">
+              <UserPage isEdit />
+            </Route>
+            <Route exact path="/contracts">
+              <ContractPage />
+            </Route>
+            <Route exact path="/">
+              <Redirect to="/places" />
+            </Route>
+          </div>
         </Switch>
       </Router>
     </>
