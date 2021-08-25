@@ -9,6 +9,7 @@ const rentContractController = require('./Controller/rentContractController');
 const interestController = require('./Controller/interestController');
 
 routes.get('/user', userController.index);
+routes.get('/user/login', userController.login);
 routes.get('/user', userController.getPlaces);
 routes.post('/user', userController.create);
 routes.put('/user', userController.update);

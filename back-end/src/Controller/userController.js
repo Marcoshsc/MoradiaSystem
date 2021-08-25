@@ -1,33 +1,5 @@
 const prisma = require('../prisma');
-const bcrypt = require('bcrypt');
-const SALT_ROUNDS = 10;
-
-async function hashPassword (password){
-  return new Promise((resolve, reject) => {
-    bcrypt.genSalt(SALT_ROUNDS, (errorInSalt, salt) => {
-      if (errorInSalt) {
-        reject(errorInSalt);
-      }
-      bcrypt.hash(password, salt, (errorInHash, hash) => {
-        if (errorInHash) {
-          reject(errorInHash);
-        }
-        resolve(hash);
-      });
-    });
-  });
-};
-
-async function comparePassword(password, hash,) {
-  return new Promise((resolve, reject) => {
-    bcrypt.compare(password, hash, (err, result) => {
-      if (err) {
-        reject(err);
-      }
-      resolve(result);
-    });
-  });
-};
+const { comparePassword, hashPassword } = require('../utils/bcrypt') 
 
 module.exports = {
   async create(req, res) {
@@ -49,6 +21,33 @@ module.exports = {
       console.log(error.name + ":" + error.message);
       res.status(400).send();
     }
+  },
+
+  async login(req, res) {
+    const { email, password } = req.body;
+    let data 
+    try {
+      data = await prisma.user.findUnique({
+        where: {
+          email
+        }
+      });
+    } catch (error) {
+      console.log(error.name + ":" + error.message);
+      res.status(400).send();
+    }
+
+    if(!data){
+      res.status(404).send();
+    }
+
+    const compare = await comparePassword(password, data.password)
+
+    if(!compare){
+      res.status(401).send();
+    }
+
+    res.json(data)
   },
 
   async index(req, res) {
