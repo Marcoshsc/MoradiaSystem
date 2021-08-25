@@ -3,14 +3,9 @@ import styles from "./styles.module.scss";
 import { ImLocation } from "react-icons/im";
 import { BiBath, BiBed } from "react-icons/bi";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
+import { Place } from "../../models/place";
 
-const CardSale = ({
-  isEdit,
-  isContract,
-}: {
-  isEdit: boolean;
-  isContract: boolean;
-}) => {
+const CardSale = ({ isEdit, isContract, element }: { isEdit: boolean; isContract: boolean; element: Place }) => {
   const [editInfo, setEditInfo] = useState(false);
   const mokedDescription =
     "Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e vem sendo utilizado desde o século XVI, quando um impressor desconhecido Lorem Ipsum é simplesmente uma  simulação de texto da indústria tipográfica e de impressos, e vem sendo utilizado desde o século XVI, quando um impressor desconhecido";
@@ -94,33 +89,32 @@ const CardSale = ({
   ) : (
     <div className={styles.container}>
       <div className={styles.infoWrapper}>
-        <img src={mockedAvatar} className={styles.avatar} alt="avatar" />
+        <img src={element.image} className={styles.avatar} alt="avatar" />
         <div className={styles.cardInfo}>
           <h2>{mockedTitle}</h2>
           <p>{mokedDescription}</p>
           <div className={styles.cardItem}>
             <ImLocation color="#BDBDBD" />
-            Nova união, MG
+            {element.location}
           </div>
         </div>
         <div className={styles.cardFeatures}>
           <div className={styles.feature}>
-            <BiBed color="#BDBDBD" size="30" />4 quartos
+            <BiBed color="#BDBDBD" size="30" />
+            {`${element.rooms} quartos`}
           </div>
           <div className={styles.feature}>
-            <BiBath color="#BDBDBD" size="30" />5 banheiros
+            <BiBath color="#BDBDBD" size="30" />
+            {`${element.bathrooms} banheiros`}
           </div>
         </div>
       </div>
       <div className={styles.cardActions}>
         {/* Existe também o styles.labelRent */}
-        <div className={styles.labelSale}>ALUGA-SE</div>
+        <div className={styles.labelSale}>{element.status}</div>
         {isEdit && <EditButtons />}
         {isContract && (
-          <button
-            className={styles.buttonRemove}
-            onClick={handleDeleleContract}
-          >
+          <button className={styles.buttonRemove} onClick={handleDeleleContract}>
             Remover interesse
           </button>
         )}

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import styles from "./styles.module.scss";
 import Avatar from "../../images/user-avatar.png";
 import Phone from "../../images/phone.png";
@@ -12,6 +12,7 @@ import {
   AiFillCheckSquare,
 } from "react-icons/ai";
 import CardSale from "../CardSales";
+import { AuthContext } from "../../contexts/AuthContenxt";
 
 const UserPage = ({ isEdit }: { isEdit: boolean }) => {
   const [editDescription, setEditDescription] = useState(false);
@@ -19,6 +20,10 @@ const UserPage = ({ isEdit }: { isEdit: boolean }) => {
   const [editName, setEditName] = useState(false);
   const mokedDescription =
     "Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e vem sendo utilizado desde o século XVI, quando um impressor desconhecido Lorem Ipsum é simplesmente uma  simulação de texto da indústria tipográfica e de impressos, e vem sendo utilizado desde o século XVI, quando um impressor desconhecido";
+  const { user } = useContext(AuthContext);
+  if (!user) {
+    return null;
+  }
 
   const handleEditDescription = () => {
     setEditDescription(true);
@@ -68,8 +73,8 @@ const UserPage = ({ isEdit }: { isEdit: boolean }) => {
     </div>
   );
 
-  const CardInfo = () =>
-    editInfo ? (
+  const CardInfo = () => {
+    return editInfo ? (
       <EditCardInfo />
     ) : (
       <div className={styles.userInfo}>
@@ -77,29 +82,29 @@ const UserPage = ({ isEdit }: { isEdit: boolean }) => {
           <div className={styles.cardColumn}>
             <div className={styles.cardItem}>
               <ImLocation color="#BDBDBD" />
-              Nova união, MG
+              {user.location}
             </div>
             <div className={styles.cardItem}>
               <AiFillHome color="#BDBDBD" />
-              Anúncio de casas para aluguel: 3
+              {`Anúncio de casas para aluguel: ${user.number_rent}`}
             </div>
             <div className={styles.cardItem}>
               <AiOutlineHome color="#BDBDBD" />
-              Anúncio de casas para aluguel: 5
+              {`Anúncio de casas para venda: ${user.number_sell}`}
             </div>
           </div>
           <div className={styles.cardColumn}>
             <div className={styles.cardItem}>
               <AiOutlinePhone color="#BDBDBD" />
-              (31) 98541-8469
+              {user.phone}
             </div>
             <div className={styles.cardItem}>
               <img src={Phone} className={styles.phone} alt="phone" />
-              (31) 3596-7800
+              {user.phone}
             </div>
             <div className={styles.cardItem}>
               <AiOutlineMail color="#BDBDBD" />
-              usuario@email.com
+              {user.email}
             </div>
           </div>
         </div>
@@ -110,6 +115,7 @@ const UserPage = ({ isEdit }: { isEdit: boolean }) => {
         )}
       </div>
     );
+  };
 
   const EditCardInfo = () => (
     <div className={styles.userInfo}>
@@ -121,8 +127,7 @@ const UserPage = ({ isEdit }: { isEdit: boolean }) => {
           </div>
           <div className={styles.cardItem}>
             <AiFillHome color="#BDBDBD" />
-            Anúncio de casas para aluguel:{" "}
-            <input defaultValue="3" className={styles.smallInput} />
+            Anúncio de casas para aluguel: <input defaultValue="3" className={styles.smallInput} />
           </div>
           <div className={styles.cardItem}>
             <AiOutlineHome color="#BDBDBD" />
@@ -155,30 +160,22 @@ const UserPage = ({ isEdit }: { isEdit: boolean }) => {
     <div className={styles.container}>
       <Header />
       <div className={styles.description}>
-        {editDescription ? (
-          <textarea defaultValue={mokedDescription} rows={8} />
-        ) : (
-          <p>{mokedDescription}</p>
-        )}
+        {editDescription ? <textarea rows={8} /> : <p>{user.description}</p>}
         {isEdit &&
           (editDescription ? (
-            <button
-              className={styles.buttonSave}
-              onClick={handleSaveDescription}
-            >
+            <button className={styles.buttonSave} onClick={handleSaveDescription}>
               Salvar descrição
             </button>
           ) : (
-            <button
-              className={styles.buttonEdit}
-              onClick={handleEditDescription}
-            >
+            <button className={styles.buttonEdit} onClick={handleEditDescription}>
               Editar descrição
             </button>
           ))}
       </div>
       <CardInfo />
-      <CardSale isEdit={isEdit} isContract={false} />
+      {user.place.map((el) => (
+        <CardSale element={el} isEdit={isEdit} isContract={false} />
+      ))}
     </div>
   );
 };

@@ -13,29 +13,29 @@ export const AuthContext = createContext({} as AuthContextType);
 export function AuthProvider(props: PropsWithChildren<any>) {
   const [user, setUser] = useState<User | null>(null);
 
-  async function singIn(email: string, password: string) {
-    let user = null;
+  const singIn = async (email: string, password: string) => {
+    if (user && user.email === email) {
+      return false;
+    }
+    let newUser = null;
     try {
-      user = await loginService(email, password);
+      newUser = await loginService(email, password);
+      console.log(newUser);
     } catch (e) {
       return false;
     }
 
-    if ((user as User).id) {
-      setUser(user as User);
+    if ((newUser as User).id) {
+      setUser(newUser as User);
       return true;
     } else {
       return false;
     }
-  }
+  };
 
   function handleSetUser(user: User) {
     setUser(user);
   }
 
-  return (
-    <AuthContext.Provider value={{ user, singIn, handleSetUser }}>
-      {props.children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={{ user, singIn, handleSetUser }}>{props.children}</AuthContext.Provider>;
 }

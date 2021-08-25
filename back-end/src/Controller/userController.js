@@ -1,5 +1,21 @@
-const prisma = require('../prisma');
-const { comparePassword, hashPassword } = require('../utils/bcrypt') 
+const prisma = require("../prisma");
+const { comparePassword, hashPassword } = require("../utils/bcrypt");
+
+const generateUserToSend = (el) => ({
+  ...el,
+  password: undefined,
+  place: undefined,
+  email: undefined,
+  number_rent: el.place.filter((p) => p.status === "RENT").length,
+  number_sell: el.place.filter((p) => p.status === "SELL").length,
+});
+
+const generateLoggedUserToSend = (el) => ({
+  ...el,
+  password: undefined,
+  number_rent: el.place.filter((p) => p.status === "RENT").length,
+  number_sell: el.place.filter((p) => p.status === "SELL").length,
+})
 
 module.exports = {
   async create(req, res) {
@@ -13,10 +29,13 @@ module.exports = {
           email: email,
           password: hashedPass,
           phone: phone,
-          location: location
+          location: location,
+        },
+        include: {
+          place: true
         }
       });
-      res.json(data);
+      res.json(generateLoggedUserToSend(data));
     } catch (error) {
       console.log(error.name + ":" + error.message);
       res.status(400).send();
@@ -25,35 +44,42 @@ module.exports = {
 
   async login(req, res) {
     const { email, password } = req.body;
-    let data 
+    let data;
     try {
       data = await prisma.user.findFirst({
         where: {
-          email
-        }
+          email,
+        },
+        include: {
+          place: true,
+        },
       });
     } catch (error) {
       console.log(error.name + ":" + error.message);
       res.status(400).send();
     }
 
-    if(!data){
+    if (!data) {
       res.status(404).send();
     }
 
-    const compare = await comparePassword(password, data.password)
+    const compare = await comparePassword(password, data.password);
 
-    if(!compare){
+    if (!compare) {
       res.status(401).send();
     }
 
-    res.json(data)
+    res.json(generateLoggedUserToSend(data));
   },
 
   async index(req, res) {
     try {
-      const data = await prisma.user.findMany();
-      res.json(data);
+      const data = await prisma.user.findMany({
+        include: {
+          place: true,
+        },
+      });
+      res.json(data.map(generateUserToSend));
     } catch (error) {
       console.log(error.name + ":" + error.message);
       res.status(400).send();
@@ -66,7 +92,7 @@ module.exports = {
       const data = await prisma.interest.findMany({
         where: {
           id_user: id,
-        }
+        },
       });
       res.json(data);
     } catch (error) {
@@ -81,7 +107,7 @@ module.exports = {
       const data = await prisma.user.findUnique({
         where: {
           id: id,
-        }
+        },
       });
       res.json(data);
     } catch (error) {
@@ -89,14 +115,14 @@ module.exports = {
       res.status(400).send();
     }
   },
-  
+
   async getPlaces(req, res) {
     const id = req.params.id;
     try {
       const data = await prisma.place.findMany({
         where: {
           id_user: id,
-        }
+        },
       });
       res.json(data);
     } catch (error) {
@@ -112,7 +138,7 @@ module.exports = {
     try {
       const data = await prisma.user.update({
         where: {
-          id: Number(id)
+          id: Number(id),
         },
         data: {
           name: newName,
@@ -120,8 +146,8 @@ module.exports = {
           email: newEmail,
           password: newPass,
           phone: newPhone,
-          location: newLocation
-        }
+          location: newLocation,
+        },
       });
       res.json(data);
     } catch (error) {
@@ -135,7 +161,7 @@ module.exports = {
     try {
       const data = await prisma.user.delete({
         where: {
-          id: Number(id)
+          id: Number(id),
         },
       });
       res.json(data);
@@ -143,5 +169,5 @@ module.exports = {
       console.log(error.name + ":" + error.message);
       res.status(400).send();
     }
-  }
-}
+  },
+};
