@@ -135,21 +135,20 @@ module.exports = {
   },
 
   async update(req, res) {
-    const { id, newName, newDescription, newEmail, newPassword, newPhone, newLocation } = req.body;
+    const { id } = req.params
+    const { name, description, email, phone, location } = req.body;
 
-    const newPass = hashPassword(newPassword);
     try {
       const data = await prisma.user.update({
         where: {
           id: Number(id),
         },
         data: {
-          name: newName,
-          description: newDescription,
-          email: newEmail,
-          password: newPass,
-          phone: newPhone,
-          location: newLocation,
+          name,
+          description,
+          email,
+          phone,
+          location,
         },
       });
       res.json(data);

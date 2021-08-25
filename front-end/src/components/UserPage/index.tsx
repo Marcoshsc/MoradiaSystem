@@ -14,23 +14,57 @@ import {
 import CardSale from "../CardSales";
 import { AuthContext } from "../../contexts/AuthContenxt";
 import { useHistory } from "react-router";
+import { api } from "../../api/axios";
 
 const UserPage = ({ isEdit }: { isEdit: boolean }) => {
+  const { user, refresh } = useContext(AuthContext);
+
   const [editDescription, setEditDescription] = useState(false);
   const [editInfo, setEditInfo] = useState(false);
   const [editName, setEditName] = useState(false);
-  const mokedDescription =
-    "Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e vem sendo utilizado desde o século XVI, quando um impressor desconhecido Lorem Ipsum é simplesmente uma  simulação de texto da indústria tipográfica e de impressos, e vem sendo utilizado desde o século XVI, quando um impressor desconhecido";
-  const { user } = useContext(AuthContext);
+
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [location, setLocation] = useState("");
+  const [email, setEmail] = useState("");
+  const [description, setDescription] = useState("");
+
+  useEffect(() => {
+    if (!user) return;
+    setName(user.name);
+    setPhone(user.phone || "");
+    setLocation(user.location);
+    setDescription(user.description);
+    setEmail(user.email);
+  }, [user]);
+
   if (!user) {
     return null;
   }
+
+  const editUser = async (info: {
+    newName?: string;
+    newPhone?: string;
+    newLocation?: string;
+    newDescription?: string;
+    newEmail?: string;
+  }) => {
+    await api.put(`/user/${user.id}`, {
+      name: info.newName || name,
+      phone: info.newPhone || phone,
+      location: info.newLocation || location,
+      description: info.newDescription || description,
+      email: info.newEmail || email,
+    });
+    await refresh();
+  };
 
   const handleEditDescription = () => {
     setEditDescription(true);
   };
 
   const handleSaveDescription = () => {
+    editUser({});
     setEditDescription(false);
   };
 
@@ -38,7 +72,8 @@ const UserPage = ({ isEdit }: { isEdit: boolean }) => {
     setEditInfo(true);
   };
 
-  const handleSaveInfo = () => {
+  const handleSaveInfo = (location: string, phone: string, email: string) => {
+    editUser({ newLocation: location, newPhone: phone, newEmail: email });
     setEditInfo(false);
   };
 
@@ -46,33 +81,43 @@ const UserPage = ({ isEdit }: { isEdit: boolean }) => {
     setEditName(true);
   };
 
-  const handleSaveName = () => {
+  const handleSaveName = (name: string) => {
+    editUser({ newName: name });
     setEditName(false);
   };
 
-  const Header = () => (
-    <div className={styles.header}>
-      <img src={Avatar} className={styles.avatar} alt="avatar" />
-      {isEdit && editName ? (
-        <input defaultValue="Usuário" className={styles.inputEdit} />
-      ) : (
-        <div className={styles.nameUser}>Usuário</div>
-      )}
-      {isEdit ? (
-        editName ? (
-          <div onClick={handleSaveName} className={styles.iconButton}>
-            <AiFillCheckSquare size={30} />
-          </div>
+  const Header = () => {
+    const [name, setName] = useState("");
+
+    useEffect(() => {
+      if (!user) return;
+      setName(user.name);
+    }, []);
+
+    return (
+      <div className={styles.header}>
+        <img src={Avatar} className={styles.avatar} alt="avatar" />
+        {isEdit && editName ? (
+          <input value={name} onChange={handleChange(setName)} className={styles.inputEdit} />
         ) : (
-          <div onClick={handleEditName} className={styles.iconButton}>
-            <AiFillEdit size={30} />
-          </div>
-        )
-      ) : (
-        <></>
-      )}
-    </div>
-  );
+          <div className={styles.nameUser}>{user.name}</div>
+        )}
+        {isEdit ? (
+          editName ? (
+            <div onClick={() => handleSaveName(name)} className={styles.iconButton}>
+              <AiFillCheckSquare size={30} />
+            </div>
+          ) : (
+            <div onClick={handleEditName} className={styles.iconButton}>
+              <AiFillEdit size={30} />
+            </div>
+          )
+        ) : (
+          <></>
+        )}
+      </div>
+    );
+  };
 
   const CardInfo = () => {
     const history = useHistory();
@@ -82,7 +127,7 @@ const UserPage = ({ isEdit }: { isEdit: boolean }) => {
     };
 
     return editInfo ? (
-      <EditCardInfo />
+      <EditCardInfo onSubmitInfo={handleSaveInfo} />
     ) : (
       <div className={styles.userInfo}>
         <div className={styles.cardInfo}>
@@ -128,51 +173,64 @@ const UserPage = ({ isEdit }: { isEdit: boolean }) => {
       </div>
     );
   };
+  const handleChange = (callback: (value: string) => void) => {
+    return (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+      callback(e.target.value);
+    };
+  };
 
-  const EditCardInfo = () => (
-    <div className={styles.userInfo}>
-      <div className={styles.cardInfo}>
-        <div className={styles.cardColumn}>
-          <div className={styles.cardItem}>
-            <ImLocation color="#BDBDBD" />
-            <input defaultValue="Nova união, MG" />
+  const EditCardInfo = ({
+    onSubmitInfo,
+  }: {
+    onSubmitInfo(location: string, phone: string, email: string, description: string): void;
+  }) => {
+    const [phone, setPhone] = useState("");
+    const [location, setLocation] = useState("");
+    const [email, setEmail] = useState("");
+
+    useEffect(() => {
+      if (!user) return;
+      setPhone(user.phone || "");
+      setLocation(user.location);
+      setEmail(user.email);
+    }, []);
+
+    return (
+      <div className={styles.userInfo}>
+        <div className={styles.cardInfo}>
+          <div className={styles.cardColumn}>
+            <div className={styles.cardItem}>
+              <ImLocation color="#BDBDBD" />
+              <input value={location} onChange={handleChange(setLocation)} />
+            </div>
           </div>
-          <div className={styles.cardItem}>
-            <AiFillHome color="#BDBDBD" />
-            Anúncio de casas para aluguel: <input defaultValue="3" className={styles.smallInput} />
-          </div>
-          <div className={styles.cardItem}>
-            <AiOutlineHome color="#BDBDBD" />
-            Anúncio de casas para aluguel:
-            <input defaultValue="5" className={styles.smallInput} />
+          <div className={styles.cardColumn}>
+            <div className={styles.cardItem}>
+              <AiOutlinePhone color="#BDBDBD" />
+              <input value={phone} onChange={handleChange(setPhone)} />
+            </div>
+            <div className={styles.cardItem}>
+              <AiOutlineMail color="#BDBDBD" />
+              <input value={email} onChange={handleChange(setEmail)} />
+            </div>
           </div>
         </div>
-        <div className={styles.cardColumn}>
-          <div className={styles.cardItem}>
-            <AiOutlinePhone color="#BDBDBD" />
-            <input defaultValue="(31) 98541-8469" />
-          </div>
-          <div className={styles.cardItem}>
-            <img src={Phone} className={styles.phone} alt="phone" />
-            <input defaultValue="(31) 3596-7800" />
-          </div>
-          <div className={styles.cardItem}>
-            <AiOutlineMail color="#BDBDBD" />
-            <input defaultValue=" usuario@email.com" />
-          </div>
-        </div>
+        <button className={styles.buttonSave} onClick={() => onSubmitInfo(location, phone, email, description)}>
+          Salvar informações
+        </button>
       </div>
-      <button className={styles.buttonSave} onClick={handleSaveInfo}>
-        Salvar informações
-      </button>
-    </div>
-  );
+    );
+  };
 
   return (
     <div className={styles.container}>
       <Header />
       <div className={styles.description}>
-        {editDescription ? <textarea rows={8} /> : <p>{user.description}</p>}
+        {editDescription ? (
+          <textarea value={description} onChange={handleChange(setDescription)} rows={8} />
+        ) : (
+          <p>{user.description}</p>
+        )}
         {isEdit &&
           (editDescription ? (
             <button className={styles.buttonSave} onClick={handleSaveDescription}>

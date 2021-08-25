@@ -12,7 +12,7 @@ routes.get('/user', userController.index);
 routes.post('/user/login', userController.login);
 routes.get('/user/:id', userController.getUser);
 routes.post('/user', userController.create);
-routes.put('/user', userController.update);
+routes.put('/user/:id', userController.update);
 routes.delete('/user/:id', userController.delete);
 
 routes.get('/sellContract', sellContractController.index);
@@ -22,7 +22,7 @@ routes.delete('/sellContract/:id', sellContractController.delete);
 
 routes.get('/place', placeController.index);
 routes.post('/place', placeController.create);
-routes.put('/place', placeController.update);
+routes.put('/place/:id', placeController.update);
 routes.delete('/place/:id', placeController.delete);
 
 routes.get('/rentContract', rentContractController.index);
