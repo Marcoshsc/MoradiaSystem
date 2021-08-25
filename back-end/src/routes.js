@@ -10,7 +10,7 @@ const interestController = require('./Controller/interestController');
 
 routes.get('/user', userController.index);
 routes.post('/user/login', userController.login);
-routes.get('/user', userController.getPlaces);
+routes.get('/user/:id', userController.getUser);
 routes.post('/user', userController.create);
 routes.put('/user', userController.update);
 routes.delete('/user/:id', userController.delete);

@@ -1,4 +1,5 @@
 import { createContext, PropsWithChildren, useState } from "react";
+import { api } from "../api/axios";
 import { loginService } from "../api/userService";
 import { User } from "../types/user";
 
@@ -6,6 +7,7 @@ type AuthContextType = {
   user: User | null;
   singIn: (email: string, password: string) => Promise<boolean>;
   handleSetUser: (user: User) => void;
+  refresh(): Promise<void>;
 };
 
 export const AuthContext = createContext({} as AuthContextType);
@@ -33,9 +35,15 @@ export function AuthProvider(props: PropsWithChildren<any>) {
     }
   };
 
+  async function refresh() {
+    if (!user) return;
+    const response = await api.get(`/user/${user.id}`);
+    setUser(response.data);
+  }
+
   function handleSetUser(user: User) {
     setUser(user);
   }
 
-  return <AuthContext.Provider value={{ user, singIn, handleSetUser }}>{props.children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={{ user, singIn, handleSetUser, refresh }}>{props.children}</AuthContext.Provider>;
 }

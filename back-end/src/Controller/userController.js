@@ -106,10 +106,13 @@ module.exports = {
     try {
       const data = await prisma.user.findUnique({
         where: {
-          id: id,
+          id: Number.parseInt(id),
         },
+        include: {
+          place: true
+        }
       });
-      res.json(data);
+      res.json(generateLoggedUserToSend(data));
     } catch (error) {
       console.log(error.name + ":" + error.message);
       res.status(400).send();

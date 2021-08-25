@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 import Avatar from "../../images/user-avatar.png";
 import Phone from "../../images/phone.png";

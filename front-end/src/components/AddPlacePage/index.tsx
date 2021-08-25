@@ -7,7 +7,7 @@ import styles from "./styles.module.scss";
 
 const AddPlacePage: FC = () => {
   const history = useHistory();
-  const { user } = useContext(AuthContext);
+  const { user, refresh } = useContext(AuthContext);
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -35,6 +35,7 @@ const AddPlacePage: FC = () => {
         image,
         id_user: user.id,
       });
+      await refresh();
       history.push("/user/edit");
     };
     savePlace();
