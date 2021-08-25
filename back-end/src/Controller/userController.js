@@ -27,7 +27,7 @@ module.exports = {
     const { email, password } = req.body;
     let data 
     try {
-      data = await prisma.user.findUnique({
+      data = await prisma.user.findFirst({
         where: {
           email
         }
