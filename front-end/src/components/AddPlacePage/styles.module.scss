@@ -1,0 +1,32 @@
+@import "../../styles/flex.scss";
+
+.container {
+  @include flex-column(0, center, flex-start);
+  width: 100%;
+  form {
+    width: 80%;
+  }
+}
+
+.title {
+  text-align: center;
+  width: 100%;
+}
+
+.item {
+  @include flex-row(10px, flex-start, center);
+  padding: 20px;
+  width: 100%;
+  p {
+    width: 150px;
+  }
+  .input {
+    flex-grow: 1;
+  }
+}
+
+.submit {
+  @include flex-row(0px, center, center);
+  width: 100%;
+  padding: 20px;
+}

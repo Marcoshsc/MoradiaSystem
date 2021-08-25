@@ -7,8 +7,9 @@ import NavBar from "./components/NavBar";
 import UserPage from "./components/UserPage";
 import ContractPage from "./components/ContractPage";
 import Register from "./components/Register";
-import { useContext, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { AuthContext } from "./contexts/AuthContenxt";
+import AddPlacePage from "./components/AddPlacePage";
 
 function App() {
   const { singIn } = useContext(AuthContext);
@@ -32,6 +33,9 @@ function App() {
 
             <Route exact path="/places">
               <PlacesList />
+            </Route>
+            <Route exact path="/addplace">
+              <AddPlacePage />
             </Route>
             <Route path="/places/:id">
               <PlacePage />

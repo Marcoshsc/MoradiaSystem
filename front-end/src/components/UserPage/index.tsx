@@ -13,6 +13,7 @@ import {
 } from "react-icons/ai";
 import CardSale from "../CardSales";
 import { AuthContext } from "../../contexts/AuthContenxt";
+import { useHistory } from "react-router";
 
 const UserPage = ({ isEdit }: { isEdit: boolean }) => {
   const [editDescription, setEditDescription] = useState(false);
@@ -74,6 +75,12 @@ const UserPage = ({ isEdit }: { isEdit: boolean }) => {
   );
 
   const CardInfo = () => {
+    const history = useHistory();
+
+    const handleAddPlace = () => {
+      history.push("/addplace");
+    };
+
     return editInfo ? (
       <EditCardInfo />
     ) : (
@@ -109,9 +116,14 @@ const UserPage = ({ isEdit }: { isEdit: boolean }) => {
           </div>
         </div>
         {isEdit && (
-          <button className={styles.buttonEdit} onClick={handleEditInfo}>
-            Editar informações
-          </button>
+          <>
+            <button className={styles.buttonEdit} onClick={handleEditInfo}>
+              Editar informações
+            </button>
+            <button className={styles.buttonEdit} onClick={handleAddPlace}>
+              Adicionar imóvel
+            </button>
+          </>
         )}
       </div>
     );
