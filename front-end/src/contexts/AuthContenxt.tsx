@@ -4,7 +4,7 @@ import { User } from "../types/user";
 
 type AuthContextType = {
   user: User | null;
-  singIn: (email: string, password: string) => void;
+  singIn: (email: string, password: string) => Promise<boolean>;
   handleSetUser: (user: User) => void;
 };
 
@@ -14,9 +14,18 @@ export function AuthProvider(props: PropsWithChildren<any>) {
   const [user, setUser] = useState<User | null>(null);
 
   async function singIn(email: string, password: string) {
-    const user = await loginService(email, password);
-    if (user) {
-      setUser(user);
+    let user = null;
+    try {
+      user = await loginService(email, password);
+    } catch (e) {
+      return false;
+    }
+
+    if ((user as User).id) {
+      setUser(user as User);
+      return true;
+    } else {
+      return false;
     }
   }
 
