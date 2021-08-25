@@ -4,10 +4,14 @@ import { api } from "./axios";
 export const loginService = async (
   email: string,
   password: string
-): Promise<User> => {
-  const response = await api.post("/user/login", { email, password });
-
-  return response.data;
+): Promise<User | Error> => {
+  try {
+    return await (
+      await api.post("/user/login", { email, password })
+    ).data;
+  } catch {
+    return Error("");
+  }
 };
 
 export const registerService = async (
