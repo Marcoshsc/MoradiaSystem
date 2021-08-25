@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { FC } from "react";
 import styles from "./styles.module.scss";
 import Avatar from "../../images/user.png";
@@ -6,11 +6,13 @@ import MenuImg from "../../images/menu.png";
 import { useHistory } from "react-router-dom";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
+import { AuthContext } from "../../contexts/AuthContenxt";
 
 const NavBar: FC = () => {
   const [index, setIndex] = useState(
     Number.parseInt(localStorage.getItem("index")!)
   );
+  const { user } = useContext(AuthContext);
   const history = useHistory();
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -38,9 +40,7 @@ const NavBar: FC = () => {
     setAnchorEl(null);
   };
 
-  return history.location.pathname === "/login" ? (
-    <></>
-  ) : (
+  return (
     <div className={styles.navbar}>
       <div className={styles.itensWrapper}>
         <div className={styles.navitens}>
@@ -54,7 +54,7 @@ const NavBar: FC = () => {
         ></div>
       </div>
       <div className={styles.navuser}>
-        <div className={styles.username}>Bem vindo, usuário</div>
+        <div className={styles.username}>Bem vindo, {user?.name}</div>
         <img src={Avatar} className={styles.avatar} alt="avatar"></img>
         <img
           src={MenuImg}
