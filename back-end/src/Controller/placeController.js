@@ -1,5 +1,17 @@
 const prisma = require("../prisma");
 
+const generatePlaceWithUser = (place) => {
+    return {
+        ...place,
+        user: {
+            ...place.user,
+            password: undefined,
+            email: undefined,
+            id: undefined
+        }
+    }
+}
+
 module.exports = {
   async create(req, res) {
     const { name, rooms, bathrooms, location, description, status, area, value, image, id_user } = req.body;
@@ -17,8 +29,28 @@ module.exports = {
           image: image,
           id_user: id_user,
         },
+        include: {
+            user: true
+        }
       });
-      res.json(data);
+      res.json(generatePlaceWithUser(data));
+    } catch (error) {
+      console.log(error.name + ":" + error.message);
+      res.status(400).send();
+    }
+  },
+
+  async getPlace(req, res) {
+    try {
+      const data = await prisma.place.findUnique({
+          where: {
+              id: Number.parseInt(req.params.id)
+          },
+          include: {
+              user: true,
+          }
+      });
+      res.json(generatePlaceWithUser(data));
     } catch (error) {
       console.log(error.name + ":" + error.message);
       res.status(400).send();
@@ -27,8 +59,12 @@ module.exports = {
 
   async index(req, res) {
     try {
-      const data = await prisma.place.findMany();
-      res.json(data);
+      const data = await prisma.place.findMany({
+          include: {
+              user: true
+          }
+      });
+      res.json(data.map(el => generatePlaceWithUser(el)));
     } catch (error) {
       console.log(error.name + ":" + error.message);
       res.status(400).send();

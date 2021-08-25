@@ -1,11 +1,10 @@
 import React, { FC, PropsWithChildren } from "react";
+import Avatar from "../../../images/user-avatar.png";
 import styles from "./PlaceCard.module.scss";
 import { FaBath, FaBed } from "react-icons/fa";
 import { MdPlace } from "react-icons/md";
 import { useHistory } from "react-router-dom";
 import { Place } from "../../../models/place";
-
-const url2 = "https://www.pikpng.com/pngl/m/80-805523_default-avatar-svg-png-icon-free-download-264157.png";
 
 interface PlaceCardProps {
   element: Place;
@@ -44,8 +43,11 @@ const PlaceCard: FC<PlaceCardProps> = (props: PropsWithChildren<PlaceCardProps>)
           </div>
         </div>
         <div className={styles.userInfo}>
-          <p>nome_usuario</p>
-          <img src={url2} alt="User avatar" />
+          <p>{place.user.name}</p>
+          <img
+            src={place.user.image === undefined || place.user.image === "" ? Avatar : place.user.image}
+            alt="User avatar"
+          />
         </div>
       </div>
       <div className={styles.description}>

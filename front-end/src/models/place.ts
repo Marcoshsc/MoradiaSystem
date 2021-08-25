@@ -10,5 +10,8 @@ export interface Place {
   area: number;
   value: number;
   image: string;
-  id_user: number;
+  user: {
+    name: string;
+    image: string;
+  };
 }
