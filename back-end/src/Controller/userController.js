@@ -19,7 +19,7 @@ const generateLoggedUserToSend = (el) => ({
 
 module.exports = {
   async create(req, res) {
-    const { name, description, email, phone, location, password } = req.body;
+    const { name, description, email, phone, location, password, image } = req.body;
     const hashedPass = await hashPassword(password);
     try {
       const data = await prisma.user.create({
@@ -30,6 +30,7 @@ module.exports = {
           password: hashedPass,
           phone: phone,
           location: location,
+          image: image
         },
         include: {
           place: true
@@ -136,7 +137,7 @@ module.exports = {
 
   async update(req, res) {
     const { id } = req.params
-    const { name, description, email, phone, location } = req.body;
+    const { name, description, email, phone, location, image } = req.body;
 
     try {
       const data = await prisma.user.update({
@@ -149,6 +150,7 @@ module.exports = {
           email,
           phone,
           location,
+          image
         },
       });
       res.json(data);

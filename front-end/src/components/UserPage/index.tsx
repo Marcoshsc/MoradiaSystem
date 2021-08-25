@@ -27,6 +27,7 @@ const UserPage = ({ isEdit }: { isEdit: boolean }) => {
   const [phone, setPhone] = useState("");
   const [location, setLocation] = useState("");
   const [email, setEmail] = useState("");
+  const [image, setImage] = useState("");
   const [description, setDescription] = useState("");
 
   useEffect(() => {
@@ -36,6 +37,7 @@ const UserPage = ({ isEdit }: { isEdit: boolean }) => {
     setLocation(user.location);
     setDescription(user.description);
     setEmail(user.email);
+    setImage(user.image || "");
   }, [user]);
 
   if (!user) {
@@ -48,6 +50,7 @@ const UserPage = ({ isEdit }: { isEdit: boolean }) => {
     newLocation?: string;
     newDescription?: string;
     newEmail?: string;
+    newImage?: string;
   }) => {
     await api.put(`/user/${user.id}`, {
       name: info.newName || name,
@@ -55,6 +58,7 @@ const UserPage = ({ isEdit }: { isEdit: boolean }) => {
       location: info.newLocation || location,
       description: info.newDescription || description,
       email: info.newEmail || email,
+      image: info.newImage || image,
     });
     await refresh();
   };
@@ -81,22 +85,28 @@ const UserPage = ({ isEdit }: { isEdit: boolean }) => {
     setEditName(true);
   };
 
-  const handleSaveName = (name: string) => {
-    editUser({ newName: name });
+  const handleSaveName = (name: string, image: string) => {
+    editUser({ newName: name, newImage: image });
     setEditName(false);
   };
 
   const Header = () => {
     const [name, setName] = useState("");
+    const [image, setImage] = useState("");
 
     useEffect(() => {
       if (!user) return;
       setName(user.name);
+      setImage(user.image || "");
     }, []);
 
     return (
       <div className={styles.header}>
-        <img src={Avatar} className={styles.avatar} alt="avatar" />
+        {isEdit && editName ? (
+          <input value={image} onChange={handleChange(setImage)} className={styles.inputEdit} />
+        ) : (
+          <img src={image === "" ? Avatar : image} className={styles.avatar} alt="avatar" />
+        )}
         {isEdit && editName ? (
           <input value={name} onChange={handleChange(setName)} className={styles.inputEdit} />
         ) : (
@@ -104,7 +114,7 @@ const UserPage = ({ isEdit }: { isEdit: boolean }) => {
         )}
         {isEdit ? (
           editName ? (
-            <div onClick={() => handleSaveName(name)} className={styles.iconButton}>
+            <div onClick={() => handleSaveName(name, image)} className={styles.iconButton}>
               <AiFillCheckSquare size={30} />
             </div>
           ) : (
