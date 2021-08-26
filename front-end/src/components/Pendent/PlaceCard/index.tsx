@@ -66,8 +66,18 @@ const PlaceCard: FC<PlaceCardProps> = (
         R$
         <p>{place.proposed_value}</p>
       </div>
-      <button className={styles.buttonAccept}>Aceitar</button>
-      <button className={styles.buttonRefuse}>Recusar</button>
+      <button
+        className={styles.buttonAccept}
+        onClick={() => props.onAccept(place.id)}
+      >
+        Aceitar
+      </button>
+      <button
+        onClick={() => props.onRefuse(place.id)}
+        className={styles.buttonRefuse}
+      >
+        Recusar
+      </button>
     </div>
   );
 };

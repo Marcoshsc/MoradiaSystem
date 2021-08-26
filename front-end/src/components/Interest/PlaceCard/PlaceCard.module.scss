@@ -1,4 +1,4 @@
-@import '../../../styles/flex.scss';
+@import "../../../styles/flex.scss";
 
 .container {
   @include flex-column(0px, flex-start, flex-start);
@@ -90,4 +90,18 @@
     height: 20px;
   }
   padding: 10px;
+}
+
+.buttonRefuse {
+  width: 350px;
+  background-color: red;
+  color: white;
+  height: 30px;
+  border-radius: 8px;
+  margin: 0 auto;
+  border: none;
+  transition: all 500ms;
+  &:hover {
+    transform: scale(1.1);
+  }
 }

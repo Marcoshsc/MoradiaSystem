@@ -5,12 +5,16 @@ import { FaBath, FaBed } from "react-icons/fa";
 import { MdPlace } from "react-icons/md";
 import { useHistory } from "react-router-dom";
 import { Place } from "../../../models/place";
+import { Interest } from "../../../models/interest";
 
 interface PlaceCardProps {
-  element: Place;
+  element: Interest;
+  onRefuse: (id: number) => void;
 }
 
-const PlaceCard: FC<PlaceCardProps> = (props: PropsWithChildren<PlaceCardProps>) => {
+const PlaceCard: FC<PlaceCardProps> = (
+  props: PropsWithChildren<PlaceCardProps>
+) => {
   const history = useHistory();
   const place = props.element;
 
@@ -21,42 +25,53 @@ const PlaceCard: FC<PlaceCardProps> = (props: PropsWithChildren<PlaceCardProps>)
   return (
     <div className={styles.container} onClick={handleClick}>
       <div className={styles.placeImage}>
-        <img src={place.image} alt="Place Url" />
+        <img src={place.place.image} alt="Place Url" />
       </div>
       <div className={styles.title}>
         <div className={styles.titleText}>
-          <p>{place.name}</p>
+          <p>{place.place.name}</p>
         </div>
         <div className={styles.status}>
-          <p>{place.status}</p>
+          <p>{place.place.status}</p>
         </div>
       </div>
       <div className={styles.roomAndUserInfo}>
         <div className={styles.roomInfo}>
           <div className={styles.roomInfoItem}>
             <FaBed />
-            <p>{`${place.rooms} quartos`}</p>
+            <p>{`${place.place.rooms} quartos`}</p>
           </div>
           <div className={styles.roomInfoItem}>
             <FaBath />
-            <p>{`${place.bathrooms} banheiros`}</p>
+            <p>{`${place.place.bathrooms} banheiros`}</p>
           </div>
         </div>
         <div className={styles.userInfo}>
-          <p>{place.user.name}</p>
+          <p>{place.place.user.name}</p>
           <img
-            src={place.user.image === undefined || place.user.image === "" ? Avatar : place.user.image}
+            src={
+              place.place.user.image === undefined ||
+              place.place.user.image === ""
+                ? Avatar
+                : place.place.user.image
+            }
             alt="User avatar"
           />
         </div>
       </div>
       <div className={styles.description}>
-        <p>{place.description}</p>
+        <p>{place.place.description}</p>
       </div>
       <div className={styles.city}>
         <MdPlace />
-        <p>{place.location}</p>
+        <p>{place.place.location}</p>
       </div>
+      <button
+        onClick={() => props.onRefuse(place.id)}
+        className={styles.buttonRefuse}
+      >
+        Recusar
+      </button>
     </div>
   );
 };

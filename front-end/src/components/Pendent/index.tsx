@@ -6,10 +6,12 @@ import { Place } from "../../models/place";
 import { Interest } from "../../models/interest";
 import PlaceCard from "./PlaceCard";
 import styles from "./PlacesList.module.scss";
+import { useHistory } from "react-router-dom";
 
 const PlacesList: FC = () => {
   const [places, setPlaces] = useState<Interest[]>([]);
   const { user } = useContext(AuthContext);
+  const { push } = useHistory();
   useEffect(() => {
     const fetchPlaces = async () => {
       const response = await api.get("/interest/pendent/" + user?.id);
@@ -20,9 +22,17 @@ const PlacesList: FC = () => {
     fetchPlaces();
   }, []);
 
-  function handleOnRefuse(id: number) {}
+  function handleOnRefuse(id: number) {
+    api.delete(`/interest/${id}`).then((e) => {
+      push("/places");
+    });
+  }
 
-  function handleOnAccept(id: number) {}
+  function handleOnAccept(id: number) {
+    api.post(`/interest/${id}/accept`).then((e) => {
+      // push("/contract/" + id);
+    });
+  }
   return (
     <div className={styles.container}>
       {places.map((el) => (
