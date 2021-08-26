@@ -12,9 +12,6 @@ import clsx from "clsx";
 import { useContext } from "react";
 import { AuthContext } from "../../contexts/AuthContenxt";
 
-const url2 =
-  "https://www.pikpng.com/pngl/m/80-805523_default-avatar-svg-png-icon-free-download-264157.png";
-
 const PlacePage: FC<{}> = () => {
   const { id } = useParams() as any;
   const { user } = useContext(AuthContext);
@@ -50,20 +47,11 @@ const PlacePage: FC<{}> = () => {
 
   return (
     <>
-      <div
-        className={clsx(declareInterest ? styles.modal : styles.interestNone)}
-      >
+      <div className={clsx(declareInterest ? styles.modal : styles.interestNone)}>
         <div className={styles.interest}>
-          <input
-            value={value}
-            onChange={(e) => setValue(Number(e.target.value))}
-            placeholder="Valor de interesse"
-          />
+          <input value={value} onChange={(e) => setValue(Number(e.target.value))} placeholder="Valor de interesse" />
           <button onClick={() => handleInterest()}>confirmar</button>
-          <button
-            className={styles.back}
-            onClick={() => setDeclareInterest(false)}
-          >
+          <button className={styles.back} onClick={() => setDeclareInterest(false)}>
             voltar
           </button>
         </div>
@@ -107,11 +95,7 @@ const PlacePage: FC<{}> = () => {
             </div>
             <div className={styles.footerItem}>
               <img
-                src={
-                  place.user.image === undefined || place.user.image === ""
-                    ? Avatar
-                    : place.user.image
-                }
+                src={place.user.image === undefined || place.user.image === "" ? Avatar : place.user.image}
                 alt="User avatar"
               />
               <p>{place.user.name}</p>
@@ -122,9 +106,7 @@ const PlacePage: FC<{}> = () => {
               <BiArrowBack />
             </div>
             <div className={styles.actionItem2}>
-              <button onClick={() => setDeclareInterest(true)}>
-                Declarar interesse
-              </button>
+              <button onClick={() => setDeclareInterest(true)}>Declarar interesse</button>
             </div>
           </div>
         </div>

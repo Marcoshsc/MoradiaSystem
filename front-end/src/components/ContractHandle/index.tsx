@@ -20,11 +20,9 @@ const ContractHandle: FC = () => {
 
   if (!interest) return null;
 
-  return interest.place.status === "RENT" ? (
-    <RentContract element={interest} />
-  ) : (
-    <SellContract element={interest} />
-  );
+  console.log(interest);
+
+  return interest.place.status === "RENT" ? <RentContract element={interest} /> : <SellContract element={interest} />;
 };
 
 export default ContractHandle;

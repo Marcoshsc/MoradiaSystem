@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler, useContext } from "react";
+import React, { useContext } from "react";
 import { FC } from "react";
 import styles from "./styles.module.scss";
 import { ReactComponent as Logo } from "../../images/logo.svg";
@@ -31,23 +31,10 @@ const Panel: FC = () => {
     <div className={styles.panel}>
       <Logo />
       <input placeholder="Nome" value={name} onChange={handleField(setName)} />
-      <input
-        placeholder="Email"
-        value={email}
-        onChange={handleField(setEmail)}
-      />
-      <input
-        placeholder="Senha"
-        value={password}
-        type="password"
-        onChange={handleField(setPassword)}
-      />
+      <input placeholder="Email" value={email} onChange={handleField(setEmail)} />
+      <input placeholder="Senha" value={password} type="password" onChange={handleField(setPassword)} />
       <input placeholder="Tel" value={phone} onChange={handleField(setPhone)} />
-      <input
-        placeholder="Localização"
-        value={location}
-        onChange={handleField(setLocation)}
-      />
+      <input placeholder="Localização" value={location} onChange={handleField(setLocation)} />
       <button onClick={handleRegister} className={styles.buttonAccess}>
         Registrar
       </button>

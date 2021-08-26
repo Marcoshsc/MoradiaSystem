@@ -23,15 +23,15 @@ const PlacesList: FC = () => {
     fetchPlaces();
   }, []);
 
-  const options = {
-    includeScore: true,
-
-    // Search in `author` and in `tags` array
-    keys: ["location", "name"],
-  };
   const fuse = useMemo(() => {
+    const options = {
+      includeScore: true,
+
+      // Search in `author` and in `tags` array
+      keys: ["location", "name"],
+    };
     return new Fuse(places, options);
-  }, []);
+  }, [places]);
 
   function handleSearch(search: string) {
     const r = fuse.search(search).map((i) => i.item);
@@ -81,11 +81,7 @@ const PlacesList: FC = () => {
           onChange={(e) => handleSearch(e.target.value)}
           style={{ width: "20%", border: "1px solid green" }}
         />
-        <Select
-          native
-          value={select}
-          onChange={(e) => handle(Number(e.target.value))}
-        >
+        <Select native value={select} onChange={(e) => handle(Number(e.target.value))}>
           <option value={0}></option>
           <option value={1}>SELL</option>
           <option value={2}>RENT</option>

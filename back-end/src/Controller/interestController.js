@@ -20,8 +20,8 @@ module.exports = {
     },
 
     async getInterest(req, res) {
-        console.log('lllllllllllllll');
         try {
+            console.log(req.params.id)
             const data = await prisma.interest.findUnique({
                 where: {
                     id: Number.parseInt(req.params.id)
@@ -30,8 +30,6 @@ module.exports = {
                     place: true
                 }
             });
-
-            console.log('kkk', data);
             res.json(data);
         } catch (error) {
             console.log(error.name + ":" + error.message);

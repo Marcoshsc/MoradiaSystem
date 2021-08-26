@@ -1,5 +1,3 @@
-import CardSale from "../CardSales";
-
 const ContractPage = () => {
   return (
     <div>

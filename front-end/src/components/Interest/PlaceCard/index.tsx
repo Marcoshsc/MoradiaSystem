@@ -4,7 +4,6 @@ import styles from "./PlaceCard.module.scss";
 import { FaBath, FaBed } from "react-icons/fa";
 import { MdPlace } from "react-icons/md";
 import { useHistory } from "react-router-dom";
-import { Place } from "../../../models/place";
 import { Interest } from "../../../models/interest";
 
 interface PlaceCardProps {
@@ -12,9 +11,7 @@ interface PlaceCardProps {
   onRefuse: (id: number) => void;
 }
 
-const PlaceCard: FC<PlaceCardProps> = (
-  props: PropsWithChildren<PlaceCardProps>
-) => {
+const PlaceCard: FC<PlaceCardProps> = (props: PropsWithChildren<PlaceCardProps>) => {
   const history = useHistory();
   const place = props.element;
 
@@ -50,10 +47,7 @@ const PlaceCard: FC<PlaceCardProps> = (
           <p>{place.place.user.name}</p>
           <img
             src={
-              place.place.user.image === undefined ||
-              place.place.user.image === ""
-                ? Avatar
-                : place.place.user.image
+              place.place.user.image === undefined || place.place.user.image === "" ? Avatar : place.place.user.image
             }
             alt="User avatar"
           />
@@ -66,10 +60,7 @@ const PlaceCard: FC<PlaceCardProps> = (
         <MdPlace />
         <p>{place.place.location}</p>
       </div>
-      <button
-        onClick={() => props.onRefuse(place.id)}
-        className={styles.buttonRefuse}
-      >
+      <button onClick={() => props.onRefuse(place.id)} className={styles.buttonRefuse}>
         Recusar
       </button>
     </div>

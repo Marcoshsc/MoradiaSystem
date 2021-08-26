@@ -31,7 +31,7 @@ routes.post("/rentContract", rentContractController.create);
 routes.put("/rentContract", rentContractController.update);
 routes.delete("/rentContract/:id", rentContractController.delete);
 
-routes.get("/interest/:id", interestController.index);
+routes.get("/interest/list/:id", interestController.index);
 routes.post("/interest", interestController.create);
 routes.put("/interest", interestController.update);
 routes.delete("/interest/:id", interestController.delete);

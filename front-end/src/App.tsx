@@ -1,9 +1,4 @@
-import {
-  Route,
-  BrowserRouter as Router,
-  Switch,
-  Redirect,
-} from "react-router-dom";
+import { Route, BrowserRouter as Router, Switch, Redirect } from "react-router-dom";
 import PlacePage from "./components/PlacePage";
 import Login from "./components/Login";
 import PlacesList from "./components/PlacesList";
@@ -23,7 +18,7 @@ function App() {
   const { singIn } = useContext(AuthContext);
 
   useEffect(() => {
-    singIn("f", "f");
+    singIn("marcos@gmail.com", "123");
   }, [singIn]);
 
   return (

@@ -14,13 +14,13 @@ const PlacesList: FC = () => {
   useEffect(() => {
     const fetchPlaces = async () => {
       if (user) {
-        const response = await api.get("/interest/" + user.id);
+        const response = await api.get("/interest/list/" + user.id);
 
         setPlaces(response.data);
       }
     };
     fetchPlaces();
-  }, []);
+  }, [user]);
 
   function handleRefuse(id: number) {
     api.delete(`/interest/${id}`).then((e) => {
