@@ -48,11 +48,11 @@ const PlacesList: FC = () => {
     setSelect(select);
     let l: Place[] = [];
     if (select === 1) {
-      l = places.filter((p) => p.status === "VENDE-SE");
+      l = places.filter((p) => p.status === "SELL");
     }
 
     if (select === 2) {
-      l = places.filter((p) => p.status === "ALUGA-SE");
+      l = places.filter((p) => p.status === "RENT");
     }
 
     if (select === 0) {
@@ -86,8 +86,8 @@ const PlacesList: FC = () => {
           onChange={(e) => handle(Number(e.target.value))}
         >
           <option value={0}></option>
-          <option value={1}>SELL</option>
-          <option value={2}>RENT</option>
+          <option value={1}>VENDE-SE</option>
+          <option value={2}>ALUGA-SE</option>
         </Select>
       </div>
 
