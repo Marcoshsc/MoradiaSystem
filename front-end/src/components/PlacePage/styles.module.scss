@@ -1,10 +1,10 @@
-@import '../../styles/flex.scss';
+@import "../../styles/flex.scss";
 
 .container {
   @include flex-row(0px, flex-start, flex-start);
   width: calc(100% - 40px);
   margin: 20px;
-  box-shadow: 0px 0px 10px rgba(0,0,0,0.9);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.9);
   border-radius: 10px;
 }
 
@@ -15,7 +15,7 @@
   img {
     width: 100%;
     height: 100%;
-  border-radius: 10px 0px 0px 10px;
+    border-radius: 10px 0px 0px 10px;
   }
   .status {
     position: absolute;
@@ -23,7 +23,7 @@
     left: 0px;
     color: white;
     background-color: rgb(143, 27, 27);
-  border-radius: 10px 0px 0px 0px;
+    border-radius: 10px 0px 0px 0px;
     padding: 10px;
     p {
       font-weight: 600;
@@ -38,7 +38,7 @@
     @include flex-row(0px, flex-start, center);
     width: calc(100% - 40px);
     background-color: green;
-  border-radius: 0px 10px 0px 0px;
+    border-radius: 0px 10px 0px 0px;
     color: white;
     font-size: 30px;
     padding: 20px;
@@ -92,13 +92,13 @@
       button {
         width: 200px;
         height: 70px;
-      background: none;
-      color: white;
-      background-color: green;
-      border: none;
-      border-radius: 10px;
-      font-weight: 500;
-      font-size: 20px;
+        background: none;
+        color: white;
+        background-color: green;
+        border: none;
+        border-radius: 10px;
+        font-weight: 500;
+        font-size: 20px;
       }
       button:hover {
         transform: scale(1.05);
@@ -107,4 +107,55 @@
       }
     }
   }
+}
+
+.interest {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  input {
+    border: 1px solid green;
+    width: 450px;
+    height: 50px;
+  }
+  button:first-of-type {
+    background-color: green;
+    color: #fff;
+    border-radius: 8px;
+    border: none;
+    width: 350px;
+    height: 50px;
+    &:hover {
+      filter: brightness(0.7);
+    }
+  }
+}
+.back {
+  background-color: red !important;
+  color: #fff;
+  border-radius: 8px;
+  border: none;
+  width: 350px;
+  height: 50px;
+  &:hover {
+    filter: brightness(0.7);
+  }
+}
+.interestNone {
+  display: none;
+}
+
+.modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #222a;
+  z-index: 100;
+  width: 100vw;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

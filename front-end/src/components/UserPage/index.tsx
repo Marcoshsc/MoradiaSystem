@@ -15,6 +15,7 @@ import CardSale from "../CardSales";
 import { AuthContext } from "../../contexts/AuthContenxt";
 import { useHistory } from "react-router";
 import { api } from "../../api/axios";
+import { Place } from "../../models/place";
 
 const UserPage = ({ isEdit }: { isEdit: boolean }) => {
   const { user, refresh } = useContext(AuthContext);
@@ -103,18 +104,33 @@ const UserPage = ({ isEdit }: { isEdit: boolean }) => {
     return (
       <div className={styles.header}>
         {isEdit && editName ? (
-          <input value={image} onChange={handleChange(setImage)} className={styles.inputEdit} />
+          <input
+            value={image}
+            onChange={handleChange(setImage)}
+            className={styles.inputEdit}
+          />
         ) : (
-          <img src={image === "" ? Avatar : image} className={styles.avatar} alt="avatar" />
+          <img
+            src={image === "" ? Avatar : image}
+            className={styles.avatar}
+            alt="avatar"
+          />
         )}
         {isEdit && editName ? (
-          <input value={name} onChange={handleChange(setName)} className={styles.inputEdit} />
+          <input
+            value={name}
+            onChange={handleChange(setName)}
+            className={styles.inputEdit}
+          />
         ) : (
           <div className={styles.nameUser}>{user.name}</div>
         )}
         {isEdit ? (
           editName ? (
-            <div onClick={() => handleSaveName(name, image)} className={styles.iconButton}>
+            <div
+              onClick={() => handleSaveName(name, image)}
+              className={styles.iconButton}
+            >
               <AiFillCheckSquare size={30} />
             </div>
           ) : (
@@ -192,7 +208,12 @@ const UserPage = ({ isEdit }: { isEdit: boolean }) => {
   const EditCardInfo = ({
     onSubmitInfo,
   }: {
-    onSubmitInfo(location: string, phone: string, email: string, description: string): void;
+    onSubmitInfo(
+      location: string,
+      phone: string,
+      email: string,
+      description: string
+    ): void;
   }) => {
     const [phone, setPhone] = useState("");
     const [location, setLocation] = useState("");
@@ -225,7 +246,10 @@ const UserPage = ({ isEdit }: { isEdit: boolean }) => {
             </div>
           </div>
         </div>
-        <button className={styles.buttonSave} onClick={() => onSubmitInfo(location, phone, email, description)}>
+        <button
+          className={styles.buttonSave}
+          onClick={() => onSubmitInfo(location, phone, email, description)}
+        >
           Salvar informações
         </button>
       </div>
@@ -237,23 +261,33 @@ const UserPage = ({ isEdit }: { isEdit: boolean }) => {
       <Header />
       <div className={styles.description}>
         {editDescription ? (
-          <textarea value={description} onChange={handleChange(setDescription)} rows={8} />
+          <textarea
+            value={description}
+            onChange={handleChange(setDescription)}
+            rows={8}
+          />
         ) : (
           <p>{user.description}</p>
         )}
         {isEdit &&
           (editDescription ? (
-            <button className={styles.buttonSave} onClick={handleSaveDescription}>
+            <button
+              className={styles.buttonSave}
+              onClick={handleSaveDescription}
+            >
               Salvar descrição
             </button>
           ) : (
-            <button className={styles.buttonEdit} onClick={handleEditDescription}>
+            <button
+              className={styles.buttonEdit}
+              onClick={handleEditDescription}
+            >
               Editar descrição
             </button>
           ))}
       </div>
       <CardInfo />
-      {user.place.map((el) => (
+      {user.place.map((el: Place) => (
         <CardSale element={el} isEdit={isEdit} isContract={false} />
       ))}
     </div>

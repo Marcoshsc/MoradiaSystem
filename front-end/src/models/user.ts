@@ -1,4 +1,4 @@
-import { Place } from "../models/place";
+import { Place } from "./place";
 
 export type User = {
   id: string;

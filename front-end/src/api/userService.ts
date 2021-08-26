@@ -1,4 +1,4 @@
-import { User } from "../types/user";
+import { User } from "../models/user";
 import { api } from "./axios";
 
 export const loginService = async (

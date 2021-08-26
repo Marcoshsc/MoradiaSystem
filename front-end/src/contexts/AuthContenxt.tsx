@@ -1,7 +1,7 @@
 import { createContext, PropsWithChildren, useState } from "react";
 import { api } from "../api/axios";
 import { loginService } from "../api/userService";
-import { User } from "../types/user";
+import { User } from "../models/user";
 
 type AuthContextType = {
   user: User | null;
@@ -45,5 +45,9 @@ export function AuthProvider(props: PropsWithChildren<any>) {
     setUser(user);
   }
 
-  return <AuthContext.Provider value={{ user, singIn, handleSetUser, refresh }}>{props.children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ user, singIn, handleSetUser, refresh }}>
+      {props.children}
+    </AuthContext.Provider>
+  );
 }
