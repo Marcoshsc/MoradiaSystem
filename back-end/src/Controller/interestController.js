@@ -20,6 +20,7 @@ module.exports = {
     },
 
     async getInterest(req, res) {
+        console.log('lllllllllllllll');
         try {
             const data = await prisma.interest.findUnique({
                 where: {
@@ -29,6 +30,8 @@ module.exports = {
                     place: true
                 }
             });
+
+            console.log('kkk', data);
             res.json(data);
         } catch (error) {
             console.log(error.name + ":" + error.message);
@@ -37,26 +40,23 @@ module.exports = {
     },
 
     async index(req, res) {
-        console.log(Number(req.params.id));
+
         try {
             const data = await prisma.interest.findMany({
                 where: {
                     id_user:Number(req.params.id)
+                },
+                include: {
+                    place : {
+                        include: {
+                            user: true
+                        }
+                    }
                 }
             });
             
-            const places = await prisma.place.findMany({
-                where: {
-                   id: {
-                       in: data.map(d => d.id_place)
-                   }
-                },
-                include: {
-                    user: true
-                }
-            });
 
-            res.json(places);
+            res.json(data);
         } catch (error) {
             console.log(error.name + ":" + error.message);
             res.status(400).send();
@@ -73,7 +73,7 @@ module.exports = {
                 
             });
             
-            console.log(data);
+
             const places = await prisma.interest.findMany({
                 where: {
                    id_place: {
@@ -94,6 +94,65 @@ module.exports = {
             res.status(400).send();
         }
     },
+
+    async acceptInterest(req, res) {
+
+        try {
+            const interest = await prisma.interest.findFirst({
+                where: {
+                   id: Number(req.params.id)
+                },
+                include: {
+                    user: true,
+                    place: true
+                }
+            });
+
+            console.log(interest);
+
+            // await prisma.interest.deleteMany({
+            //     where:{
+            //         id_place: interest.id_place
+            //     },
+                
+            // })
+
+            await prisma.place.update({
+                where: {
+                    id: Number(interest.id_place),
+                  },
+                  data:{
+                      status: 'USING'
+                  }
+            })
+
+            // if(interest.place.status === 'SELL'){
+            //     await prisma.sellcontract.create({
+            //         data:{
+            //             value: interest.proposed_value,
+            //             created_at: new Date(),
+            //             id_place: interest.id_place,
+            //             id_user: interest.id_user,
+            //         }
+            //     })
+            // }else{
+            //     await prisma.rentcontract.create({
+            //         data:{
+            //             value: interest.proposed_value,
+            //             created_at: new Date(),
+            //             id_place: interest.id_place,
+            //             id_user: interest.id_user,
+            //         }
+            //     })
+            // }
+
+            res.status(201).send();
+        } catch (error) {
+            console.log(error.name + ":" + error.message);
+            res.status(400).send();
+        }
+    },
+
 
     async update(req, res) {
         const { id, newProposed_value, newId_place, newId_user } = req.body;
