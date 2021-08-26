@@ -14,14 +14,6 @@ const CardSale = ({ isEdit, isContract, element }: { isEdit: boolean; isContract
   const history = useHistory();
   const { refresh } = useContext(AuthContext);
 
-  const mokedDescription =
-    "Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e vem sendo utilizado desde o século XVI, quando um impressor desconhecido Lorem Ipsum é simplesmente uma  simulação de texto da indústria tipográfica e de impressos, e vem sendo utilizado desde o século XVI, quando um impressor desconhecido";
-
-  const mockedTitle = "Casa na região do subúrbio";
-
-  const mockedAvatar =
-    "https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80";
-
   const handleEditInfo = () => {
     setEditInfo(true);
   };

@@ -18,6 +18,23 @@ module.exports = {
         }
     },
 
+    async getInterest(req, res) {
+        try {
+            const data = await prisma.interest.findUnique({
+                where: {
+                    id: Number.parseInt(req.params.id)
+                },
+                include: {
+                    place: true
+                }
+            });
+            res.json(data);
+        } catch (error) {
+            console.log(error.name + ":" + error.message);
+            res.status(400).send();
+        }
+    },
+
     async index(req, res) {
         try {
             const data = await prisma.interest.findMany();

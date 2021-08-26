@@ -35,5 +35,6 @@ routes.get("/interest", interestController.index);
 routes.post("/interest", interestController.create);
 routes.put("/interest", interestController.update);
 routes.delete("/interest/:id", interestController.delete);
+routes.get('/interest/:id', interestController.getInterest)
 
 module.exports = routes;

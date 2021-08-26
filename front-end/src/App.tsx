@@ -1,9 +1,4 @@
-import {
-  Route,
-  BrowserRouter as Router,
-  Switch,
-  Redirect,
-} from "react-router-dom";
+import { Route, BrowserRouter as Router, Switch, Redirect } from "react-router-dom";
 import PlacePage from "./components/PlacePage";
 import Login from "./components/Login";
 import PlacesList from "./components/PlacesList";
@@ -15,12 +10,13 @@ import Register from "./components/Register";
 import React, { useContext, useEffect } from "react";
 import { AuthContext } from "./contexts/AuthContenxt";
 import AddPlacePage from "./components/AddPlacePage";
+import ContractHandle from "./components/ContractHandle";
 
 function App() {
   const { singIn } = useContext(AuthContext);
 
   useEffect(() => {
-    singIn("f", "f");
+    singIn("marcos@gmail.com", "123");
   }, [singIn]);
 
   return (
@@ -41,6 +37,9 @@ function App() {
             </Route>
             <Route exact path="/addplace">
               <AddPlacePage />
+            </Route>
+            <Route path="/contract/:idInterest">
+              <ContractHandle />
             </Route>
             <Route path="/places/:id">
               <PlacePage />
