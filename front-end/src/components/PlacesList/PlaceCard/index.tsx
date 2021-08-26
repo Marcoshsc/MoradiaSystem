@@ -28,7 +28,7 @@ const PlaceCard: FC<PlaceCardProps> = (props: PropsWithChildren<PlaceCardProps>)
           <p>{place.name}</p>
         </div>
         <div className={styles.status}>
-          <p>{place.status}</p>
+          <p>{place.status === "RENT" ? "ALUGA-SE" : "VENDE-SE"}</p>
         </div>
       </div>
       <div className={styles.roomAndUserInfo}>

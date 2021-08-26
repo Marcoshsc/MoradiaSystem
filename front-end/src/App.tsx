@@ -1,4 +1,4 @@
-import { Route, BrowserRouter as Router, Switch, Redirect } from "react-router-dom";
+import { Route, Switch, Redirect, useHistory } from "react-router-dom";
 import PlacePage from "./components/PlacePage";
 import Login from "./components/Login";
 import PlacesList from "./components/PlacesList";
@@ -15,58 +15,58 @@ import Interest from "./components/Interest";
 import Pendent from "./components/Pendent";
 
 function App() {
-  const { singIn } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
+  const history = useHistory();
 
   useEffect(() => {
-    singIn("marcos@gmail.com", "123");
-  }, [singIn]);
+    if (!user) {
+      history.push("/login");
+    } else {
+      history.push("/places");
+    }
+  }, [user, history]);
 
   return (
     <>
-      <Router>
-        <Switch>
-          <Route path="/register">
-            <Register />
-          </Route>
-          <Route path="/login">
-            <Login />
-          </Route>
-          <div>
-            <NavBar />
+      <Switch>
+        <Route path="/register">
+          <Register />
+        </Route>
+        <Route path="/login">
+          <Login />
+        </Route>
+        <div>
+          <NavBar />
 
-            <Route exact path="/places">
-              <PlacesList />
-            </Route>
-            <Route exact path="/addplace">
-              <AddPlacePage />
-            </Route>
-            <Route path="/contract/:idInterest">
-              <ContractHandle />
-            </Route>
-            <Route path="/places/:id">
-              <PlacePage />
-            </Route>
-            <Route exact path="/interest">
-              <Interest />
-            </Route>
-            <Route exact path="/user">
-              <UserPage isEdit={false} />
-            </Route>
-            <Route exact path="/user/edit">
-              <UserPage isEdit />
-            </Route>
-            <Route exact path="/contracts">
-              <ContractPage />
-            </Route>
-            <Route exact path="/pendent">
-              <Pendent />
-            </Route>
-            <Route exact path="/">
-              <Redirect to="/places" />
-            </Route>
-          </div>
-        </Switch>
-      </Router>
+          <Route exact path="/places">
+            <PlacesList />
+          </Route>
+          <Route exact path="/addplace">
+            <AddPlacePage />
+          </Route>
+          <Route path="/contract/:idInterest">
+            <ContractHandle />
+          </Route>
+          <Route path="/places/:id">
+            <PlacePage />
+          </Route>
+          <Route exact path="/interest">
+            <Interest />
+          </Route>
+          <Route exact path="/user">
+            <UserPage isEdit={true} />
+          </Route>
+          <Route exact path="/contracts">
+            <ContractPage />
+          </Route>
+          <Route exact path="/pendent">
+            <Pendent />
+          </Route>
+          <Route exact path="/">
+            <Redirect to="/places" />
+          </Route>
+        </div>
+      </Switch>
     </>
   );
 }

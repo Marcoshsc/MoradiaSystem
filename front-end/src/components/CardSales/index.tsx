@@ -190,7 +190,9 @@ const CardSale = ({ isEdit, isContract, element }: { isEdit: boolean; isContract
       </div>
       <div className={styles.cardActions}>
         {/* Existe também o styles.labelRent */}
-        <div className={styles.labelSale}>{element.status}</div>
+        <div className={styles.labelSale}>
+          {element.status === "RENT" ? "ALUGA-SE" : element.status === "RENT" ? "VENDE-SE" : "LIQUIDADO"}
+        </div>
         {isEdit && <EditButtons submit={() => {}} />}
         {isContract && (
           <button className={styles.buttonRemove} onClick={handleDeleleContract}>

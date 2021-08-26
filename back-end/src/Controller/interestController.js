@@ -83,7 +83,8 @@ module.exports = {
                         include:{
                             user: true
                         }
-                    }
+                    },
+                    user: true
                 }
             });
             res.json(places);

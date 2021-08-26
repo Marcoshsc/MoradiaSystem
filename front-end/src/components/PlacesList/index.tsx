@@ -42,18 +42,17 @@ const PlacesList: FC = () => {
     if (search === "") {
       setFiltered(places);
     }
-    handle(0);
   }
 
   function handle(select: number) {
     setSelect(select);
     let l: Place[] = [];
     if (select === 1) {
-      l = filtered.filter((p) => p.status === "SELL");
+      l = places.filter((p) => p.status === "SELL");
     }
 
     if (select === 2) {
-      l = filtered.filter((p) => p.status === "RENT");
+      l = places.filter((p) => p.status === "RENT");
     }
 
     if (select === 0) {

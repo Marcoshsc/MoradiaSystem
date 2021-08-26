@@ -11,6 +11,19 @@ module.exports = {
                     id_user: id_user
                 }
             });
+            await prisma.place.update({
+                where: {
+                    id: id_place
+                },
+                data: {
+                    status: 'USING'
+                }
+            })
+            await prisma.interest.deleteMany({
+                where: {
+                    id_place: id_place
+                }
+            })
             res.json(data);
         } catch (error) {
             console.log(error.name + ":" + error.message);
@@ -21,7 +34,12 @@ module.exports = {
 
     async index(req, res) {
         try {
-            const data = await prisma.sellcontract.findMany();
+            const data = await prisma.sellcontract.findMany({
+                include: {
+                    user: true,
+                    place: true
+                }
+            });
             res.json(data);
         } catch (error) {
             console.log(error.name + ":" + error.message);

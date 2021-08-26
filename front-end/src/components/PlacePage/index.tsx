@@ -59,7 +59,7 @@ const PlacePage: FC<{}> = () => {
       <div className={styles.container}>
         <div className={styles.images}>
           <div className={styles.status}>
-            <p>{place.status}</p>
+            <p>{place.status === "RENT" ? "ALUGA-SE" : "VENDE-SE"}</p>
           </div>
           <img src={place.image} alt="Place" />
         </div>

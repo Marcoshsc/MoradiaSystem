@@ -39,13 +39,17 @@ const PlaceCard: FC<PlaceCardProps> = (props: PropsWithChildren<PlaceCardProps>)
           </div>
         </div>
         <div className={styles.userInfo}>
-          <p>{place.place.user.name}</p>
           <img
             src={
-              place.place.user.image === undefined || place.place.user.image === "" ? Avatar : place.place.user.image
+              props.element.user.image === undefined || props.element.user.image === ""
+                ? Avatar
+                : props.element.user.image
             }
             alt="User avatar"
           />
+          <p>{props.element.user.name}</p>
+          <p>{props.element.user.phone}</p>
+          <p>{props.element.user.email}</p>
         </div>
       </div>
       <div className={styles.description}>

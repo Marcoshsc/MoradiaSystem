@@ -1,5 +1,6 @@
 import { Button, TextField, Typography } from "@material-ui/core";
 import React, { FC, PropsWithChildren, useContext } from "react";
+import { useHistory } from "react-router-dom";
 import { api } from "../../api/axios";
 import { AuthContext } from "../../contexts/AuthContenxt";
 import { Interest1 } from "../../models/interest";
@@ -12,6 +13,7 @@ interface SellContractProps {
 const SellContract: FC<SellContractProps> = (props: PropsWithChildren<SellContractProps>) => {
   const interest = props.element;
   const { refresh } = useContext(AuthContext);
+  const { push } = useHistory();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -22,6 +24,7 @@ const SellContract: FC<SellContractProps> = (props: PropsWithChildren<SellContra
         id_user: interest.id_user,
       });
       await refresh();
+      push("/contracts");
     };
     sendContract();
   };

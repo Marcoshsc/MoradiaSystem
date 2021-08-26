@@ -1,4 +1,5 @@
 import { Place } from "./place";
+import { User } from "./user";
 
 export interface Interest1 {
   id: number;
@@ -10,6 +11,7 @@ export interface Interest1 {
 export interface Interest {
   id: number;
   proposed_value: number;
+  user: User;
   place: {
     id: number;
     name: string;

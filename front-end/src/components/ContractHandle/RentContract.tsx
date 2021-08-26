@@ -1,5 +1,6 @@
 import { Button, TextField, Typography } from "@material-ui/core";
 import React, { FC, PropsWithChildren, useContext, useState } from "react";
+import { useHistory } from "react-router";
 import { api } from "../../api/axios";
 import { AuthContext } from "../../contexts/AuthContenxt";
 import { Interest1 } from "../../models/interest";
@@ -12,6 +13,7 @@ interface RentContractProps {
 const RentContract: FC<RentContractProps> = (props: PropsWithChildren<RentContractProps>) => {
   const interest = props.element;
   const { refresh } = useContext(AuthContext);
+  const { push } = useHistory();
 
   const [start, setStart] = useState("");
   const [end, setEnd] = useState("");
@@ -27,6 +29,7 @@ const RentContract: FC<RentContractProps> = (props: PropsWithChildren<RentContra
         id_user: interest.id_user,
       });
       await refresh();
+      push("/contracts");
     };
     sendContract();
   };

@@ -30,21 +30,21 @@ const Panel: FC = () => {
     });
   }
 
+  const handleRegister = () => {
+    push("/register");
+  };
+
   return (
     <div className={styles.panel}>
       <Logo />
       <Input callback={handleEmail} placeholder="Usuário" Icon={FaUserAlt} />
-      <Input
-        callback={handlePassword}
-        placeholder="Senha"
-        Icon={BsFillLockFill}
-      />
+      <Input callback={handlePassword} placeholder="Senha" Icon={BsFillLockFill} />
       <button className={styles.buttonAccess} onClick={handleSingIn}>
         Acessar
       </button>
       {error && <p>Login inválido</p>}
       <p>
-        Naõ possui conta? <span>Registre-se agora</span>
+        Naõ possui conta? <span onClick={handleRegister}>Registre-se agora</span>
       </p>
     </div>
   );

@@ -25,6 +25,7 @@ const Input: FC<InputProps> = ({ Icon, placeholder, callback }: InputProps) => {
         value={value}
         onChange={(e) => handleChange(e.target.value)}
         placeholder={placeholder}
+        type={placeholder === "Senha" ? "password" : "text"}
       />
     </div>
   );

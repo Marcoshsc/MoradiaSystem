@@ -2,8 +2,8 @@
 
 .container {
   @include flex-column(0px, flex-start, flex-start);
-  width: 400px;
-  height: 400px;
+  width: 500px;
+  height: 500px;
   border: 1px solid black;
   border-radius: 10px;
   margin-right: auto;
@@ -68,7 +68,7 @@
     }
   }
   .userInfo {
-    @include flex-row(10px, center, center);
+    @include flex-column(10px, center, center);
     img {
       width: 30px;
       height: 30px;

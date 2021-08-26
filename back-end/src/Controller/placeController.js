@@ -62,6 +62,11 @@ module.exports = {
       const data = await prisma.place.findMany({
           include: {
               user: true
+          },
+          where: {
+            status: {
+              in: ['SELL', 'RENT']
+            }
           }
       });
       res.json(data.map(el => generatePlaceWithUser(el)));

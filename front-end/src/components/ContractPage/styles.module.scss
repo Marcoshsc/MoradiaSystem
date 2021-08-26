@@ -1,0 +1,16 @@
+@import "../../styles/flex.scss";
+
+.container {
+  @include flex-row(20px, flex-start, flex-start);
+  width: 100%;
+  flex-wrap: wrap;
+  padding: 20px;
+}
+
+.item {
+  border: 1px solid rgba(0,0,0,0.15);
+  padding: 10px;
+  p {
+    padding: 10px;
+  }
+}
