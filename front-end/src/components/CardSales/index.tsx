@@ -137,6 +137,10 @@ const CardSale = ({ isEdit, isContract, element }: { isEdit: boolean; isContract
               <input className={styles.smallInput} value={value} onChange={handleChange(setValue)} />
               ,00
             </div>
+            <div className={styles.feature}>
+              Imagem da casa
+              <input className={styles.smallInput} value={image} onChange={handleChange(setImage)} />
+            </div>
           </div>
         </div>
         <div className={styles.cardActions}>
