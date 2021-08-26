@@ -15,7 +15,7 @@ routes.post("/user", userController.create);
 routes.put("/user/:id", userController.update);
 routes.delete("/user/:id", userController.delete);
 
-routes.get("/sellContract", sellContractController.index);
+routes.get("/sellContract/:id", sellContractController.index);
 routes.post("/sellContract", sellContractController.create);
 routes.put("/sellContract", sellContractController.update);
 routes.delete("/sellContract/:id", sellContractController.delete);
@@ -26,7 +26,7 @@ routes.put("/place/:id", placeController.update);
 routes.get("/place/:id", placeController.getPlace);
 routes.delete("/place/:id", placeController.delete);
 
-routes.get("/rentContract", rentContractController.index);
+routes.get("/rentContract/:id", rentContractController.index);
 routes.post("/rentContract", rentContractController.create);
 routes.put("/rentContract", rentContractController.update);
 routes.delete("/rentContract/:id", rentContractController.delete);

@@ -6,7 +6,7 @@ import { User } from "../models/user";
 type AuthContextType = {
   user: User | null;
   singIn: (email: string, password: string) => Promise<boolean>;
-  handleSetUser: (user: User) => void;
+  handleSetUser: (user: User | null) => void;
   refresh(): Promise<void>;
 };
 
@@ -43,13 +43,9 @@ export function AuthProvider(props: PropsWithChildren<any>) {
     setUser(response.data);
   }
 
-  function handleSetUser(user: User) {
+  function handleSetUser(user: User | null) {
     setUser(user);
   }
 
-  return (
-    <AuthContext.Provider value={{ user, singIn, handleSetUser, refresh }}>
-      {props.children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={{ user, singIn, handleSetUser, refresh }}>{props.children}</AuthContext.Provider>;
 }

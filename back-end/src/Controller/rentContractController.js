@@ -40,6 +40,9 @@ module.exports = {
                 include: {
                     user: true,
                     place: true
+                },
+                where: {
+                    id_user: Number.parseInt(req.params.id)
                 }
             });
             res.json(data);

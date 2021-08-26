@@ -7,12 +7,11 @@ import { useHistory } from "react-router-dom";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import { AuthContext } from "../../contexts/AuthContenxt";
+import { api } from "../../api/axios";
 
 const NavBar: FC = () => {
-  const [index, setIndex] = useState(
-    Number.parseInt(localStorage.getItem("index")!)
-  );
-  const { user } = useContext(AuthContext);
+  const [index, setIndex] = useState(Number.parseInt(localStorage.getItem("index")!));
+  const { user, handleSetUser } = useContext(AuthContext);
   const history = useHistory();
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -46,6 +45,18 @@ const NavBar: FC = () => {
     setAnchorEl(null);
   };
 
+  const handleLogout = () => {
+    handleSetUser(null);
+  };
+
+  const handleDeleteAccount = () => {
+    const deleteAsync = async () => {
+      await api.delete(`/user/${user?.id}`);
+      handleSetUser(null);
+    };
+    deleteAsync();
+  };
+
   return (
     <div className={styles.navbar}>
       <div className={styles.itensWrapper}>
@@ -56,35 +67,17 @@ const NavBar: FC = () => {
           <div onClick={() => handleChangeTab(3)}>Interesses</div>
           <div onClick={() => handleChangeTab(4)}>Pendente</div>
         </div>
-        <div
-          className={styles.itemSelected}
-          style={{ marginLeft: index * 90 }}
-        ></div>
+        <div className={styles.itemSelected} style={{ marginLeft: index * 90 }}></div>
       </div>
       <div className={styles.navuser}>
-        <div
-          style={{ cursor: "pointer" }}
-          onClick={() => history.push("/user")}
-          className={styles.username}
-        >
+        <div style={{ cursor: "pointer" }} onClick={() => history.push("/user")} className={styles.username}>
           Bem vindo, {user?.name}
         </div>
         <img src={Avatar} className={styles.avatar} alt="avatar"></img>
-        <img
-          src={MenuImg}
-          className={styles.menu}
-          onClick={handleClickMenu}
-          alt="menu"
-        />
-        <Menu
-          id="simple-menu"
-          anchorEl={anchorEl}
-          keepMounted
-          open={Boolean(anchorEl)}
-          onClose={handleCloseMenu}
-        >
-          <MenuItem onClick={handleCloseMenu}>Apagar conta</MenuItem>
-          <MenuItem onClick={handleCloseMenu} className={styles.logout}>
+        <img src={MenuImg} className={styles.menu} onClick={handleClickMenu} alt="menu" />
+        <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleCloseMenu}>
+          <MenuItem onClick={handleDeleteAccount}>Apagar conta</MenuItem>
+          <MenuItem onClick={handleLogout} className={styles.logout}>
             Sair
           </MenuItem>
         </Menu>
