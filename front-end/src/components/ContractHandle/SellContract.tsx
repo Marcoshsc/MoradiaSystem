@@ -2,11 +2,11 @@ import { Button, TextField, Typography } from "@material-ui/core";
 import React, { FC, PropsWithChildren, useContext } from "react";
 import { api } from "../../api/axios";
 import { AuthContext } from "../../contexts/AuthContenxt";
-import { Interest } from "../../models/interest";
+import { Interest1 } from "../../models/interest";
 import styles from "./styles.module.scss";
 
 interface SellContractProps {
-  element: Interest;
+  element: Interest1;
 }
 
 const SellContract: FC<SellContractProps> = (props: PropsWithChildren<SellContractProps>) => {
