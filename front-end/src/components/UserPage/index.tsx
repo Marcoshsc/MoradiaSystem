@@ -287,7 +287,7 @@ const UserPage = ({ isEdit }: { isEdit: boolean }) => {
           ))}
       </div>
       <CardInfo />
-      {user.place.map((el: Place) => (
+      {user.place.map((el) => (
         <CardSale element={el} isEdit={isEdit} isContract={false} />
       ))}
     </div>

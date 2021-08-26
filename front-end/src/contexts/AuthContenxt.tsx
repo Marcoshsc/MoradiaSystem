@@ -28,6 +28,8 @@ export function AuthProvider(props: PropsWithChildren<any>) {
     }
 
     if ((newUser as User).id) {
+      console.log(user);
+
       setUser(newUser as User);
       return true;
     } else {

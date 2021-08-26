@@ -1,3 +1,4 @@
+const { place, user } = require('../prisma');
 const prisma = require('../prisma');
 
 module.exports = {
@@ -36,9 +37,58 @@ module.exports = {
     },
 
     async index(req, res) {
+        console.log(Number(req.params.id));
         try {
-            const data = await prisma.interest.findMany();
-            res.json(data);
+            const data = await prisma.interest.findMany({
+                where: {
+                    id_user:Number(req.params.id)
+                }
+            });
+            
+            const places = await prisma.place.findMany({
+                where: {
+                   id: {
+                       in: data.map(d => d.id_place)
+                   }
+                },
+                include: {
+                    user: true
+                }
+            });
+
+            res.json(places);
+        } catch (error) {
+            console.log(error.name + ":" + error.message);
+            res.status(400).send();
+        }
+    },
+
+    async interestList(req, res) {
+
+        try {
+            const data = await prisma.place.findMany({
+                where: {
+                   id_user: Number(req.params.id)
+                }
+                
+            });
+            
+            console.log(data);
+            const places = await prisma.interest.findMany({
+                where: {
+                   id_place: {
+                       in: data.map(d => d.id)
+                   }
+                },
+                include: {
+                    place: {
+                        include:{
+                            user: true
+                        }
+                    }
+                }
+            });
+            res.json(places);
         } catch (error) {
             console.log(error.name + ":" + error.message);
             res.status(400).send();
