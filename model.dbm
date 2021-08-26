@@ -11,7 +11,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <schema name="public" layer="0" fill-color="#e1e1e1" sql-disabled="true">
 </schema>
 
-<table name="user" layer="0" collapse-mode="2" max-obj-count="9">
+<table name="user" layer="0" collapse-mode="2" max-obj-count="10">
 	<schema name="public"/>
 	<role name="postgres"/>
 	<position x="900" y="100"/>
@@ -38,6 +38,9 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</column>
 	<column name="created_at" not-null="true" default-value="now()">
 		<type name="timestamp" length="0"/>
+	</column>
+	<column name="image" not-null="true">
+		<type name="text" length="0"/>
 	</column>
 	<constraint name="user_pk" type="pk-constr" table="public.&quot;user&quot;">
 		<columns names="id" ref-type="src-columns"/>

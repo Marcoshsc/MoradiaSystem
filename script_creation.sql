@@ -24,6 +24,7 @@ CREATE TABLE public."user" (
 	phone character varying(30),
 	location character varying(100) NOT NULL,
 	created_at timestamp NOT NULL DEFAULT now(),
+	image text NOT NULL,
 	CONSTRAINT user_pk PRIMARY KEY (id)
 
 );
