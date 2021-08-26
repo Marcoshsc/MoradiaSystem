@@ -1,5 +1,5 @@
 import { Button } from "@material-ui/core";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { api } from "../../api/axios";
 import { AuthContext } from "../../contexts/AuthContenxt";
 import { RentContract, SellContract } from "../../models/contract";
@@ -11,16 +11,17 @@ const ContractPage = () => {
   const [sellContracts, setSellContracts] = useState<SellContract[]>([]);
   const [rentContracts, setRentContracts] = useState<RentContract[]>([]);
 
-  const getContracts = async () => {
-    const responseSell = await api.get("/sellcontract");
-    const responseRent = await api.get("/rentcontract");
+  const getContracts = useCallback(async () => {
+    if (!user) return;
+    const responseSell = await api.get(`/sellcontract/${user.id}`);
+    const responseRent = await api.get(`/rentcontract/${user.id}`);
     setSellContracts(responseSell.data);
     setRentContracts(responseRent.data);
-  };
+  }, [user]);
 
   useEffect(() => {
     getContracts();
-  }, [user]);
+  }, [getContracts, user]);
 
   const handleDeleteRentContract = (id: number) => {
     return () => {
