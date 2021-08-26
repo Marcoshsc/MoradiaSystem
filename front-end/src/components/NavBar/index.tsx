@@ -29,6 +29,12 @@ const NavBar: FC = () => {
       case 2:
         history.push("/contracts");
         break;
+      case 3:
+        history.push("/interest");
+        break;
+      case 4:
+        history.push("/pendent");
+        break;
     }
   };
 
@@ -47,6 +53,8 @@ const NavBar: FC = () => {
           <div onClick={() => handleChangeTab(0)}>imóveis</div>
           <div onClick={() => handleChangeTab(1)}>usuário</div>
           <div onClick={() => handleChangeTab(2)}>contratos</div>
+          <div onClick={() => handleChangeTab(3)}>Interesses</div>
+          <div onClick={() => handleChangeTab(4)}>Pendente</div>
         </div>
         <div
           className={styles.itemSelected}
@@ -54,7 +62,13 @@ const NavBar: FC = () => {
         ></div>
       </div>
       <div className={styles.navuser}>
-        <div className={styles.username}>Bem vindo, {user?.name}</div>
+        <div
+          style={{ cursor: "pointer" }}
+          onClick={() => history.push("/user")}
+          className={styles.username}
+        >
+          Bem vindo, {user?.name}
+        </div>
         <img src={Avatar} className={styles.avatar} alt="avatar"></img>
         <img
           src={MenuImg}

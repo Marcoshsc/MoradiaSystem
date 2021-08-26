@@ -15,12 +15,14 @@ import Register from "./components/Register";
 import React, { useContext, useEffect } from "react";
 import { AuthContext } from "./contexts/AuthContenxt";
 import AddPlacePage from "./components/AddPlacePage";
+import Interest from "./components/Interest";
+import Pendent from "./components/Pendent";
 
 function App() {
   const { singIn } = useContext(AuthContext);
 
   useEffect(() => {
-    singIn("f", "f");
+    singIn("y", "y");
   }, [singIn]);
 
   return (
@@ -45,7 +47,9 @@ function App() {
             <Route path="/places/:id">
               <PlacePage />
             </Route>
-
+            <Route exact path="/interest">
+              <Interest />
+            </Route>
             <Route exact path="/user">
               <UserPage isEdit={false} />
             </Route>
@@ -54,6 +58,9 @@ function App() {
             </Route>
             <Route exact path="/contracts">
               <ContractPage />
+            </Route>
+            <Route exact path="/pendent">
+              <Pendent />
             </Route>
             <Route exact path="/">
               <Redirect to="/places" />
